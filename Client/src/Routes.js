@@ -5,7 +5,7 @@ import HomeBooks from "./Pages/HomeBooks";
 import Loader from "./Components/Shared/Loader";
 import Wishlist from './Pages/Wishlist';
 import Guest from "./middleware/Guest";
-// import Login from "./Components/Auth/Login";
+import Login from "./Components/Auth/Login";
 import Profile from "./Pages/Profile";
 import AddBook from './Pages/AddBook';
 import Register from "./Components/Auth/Register";
@@ -41,6 +41,10 @@ export const router = createBrowserRouter([
       },
       {
         path: "login",
+        element: <Login/>,
+      },
+      {
+        path: "signup",
         element: <Register />,
       },
       //Guest middleware
@@ -48,7 +52,7 @@ export const router = createBrowserRouter([
         element: <Guest />,
         children: [
           {
-            path: "login",
+            path: "signup",
             element: <Register />,
           },
         ],

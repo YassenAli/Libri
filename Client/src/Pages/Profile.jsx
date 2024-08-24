@@ -152,6 +152,9 @@ export default function profile() {
                   <table className="w-full table-fixed">
                     <thead>
                       <tr className="bg-gray-100">
+                      <th className="w-1/4 py-4 px-6 text-left text-gray-600 font-bold uppercase">
+                          Book img
+                        </th>
                         <th className="w-1/4 py-4 px-6 text-left text-gray-600 font-bold uppercase">
                           Book title
                         </th>
@@ -178,9 +181,12 @@ export default function profile() {
                           www.box.net
                         </td>
                         <td className="py-4 px-6 border-b border-gray-200">
-                          <span className="bg-red-500 text-white py-2 px-8 rounded-[5px] text-xs">
+                          www.box.net
+                        </td>
+                        <td className="py-4 px-6 border-b border-gray-200">
+                          <button className="bg-red-500 text-white py-2 px-8 rounded-[5px] text-xs">
                             Release
-                          </span>
+                          </button>
                         </td>
                       </tr>
                       <tr>
@@ -194,9 +200,12 @@ export default function profile() {
                           www.frr.com
                         </td>
                         <td className="py-4 px-6 border-b border-gray-200">
-                          <span className="bg-red-500 text-white py-2 px-8 rounded-[5px] text-xs">
+                          www.frr.com
+                        </td>
+                        <td className="py-4 px-6 border-b border-gray-200">
+                          <button className="bg-red-500 text-white py-2 px-8 rounded-[5px] text-xs">
                             Release
-                          </span>
+                          </button>
                         </td>
                       </tr>
                     </tbody>

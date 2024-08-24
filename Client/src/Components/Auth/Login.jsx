@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import "../components.css";
+import { useNavigate } from "react-router-dom";
 import Cover from "../../imgs/2.jpg";
-const Login
- = () => {
+const Login = () => {
+  const navigate = useNavigate();
+  const handlerec = () => {
+    navigate("/signup");
+};
   const [isLoginActive, setIsLoginActive] = useState(true);
 
   const toggleForm = () => {
@@ -39,7 +43,7 @@ const Login
 
           <div class="mt-4 text-sm flex justify-between items-center container-mr">
             <p class="mr-3 md:mr-0 ">If you don't have an account..</p>
-            <button class="hover:border register text-white bg-[#20b2aa] hover:border-gray-400 rounded-xl py-2 px-5 hover:scale-110 hover:bg-[#002c7424] font-semibold duration-300">
+            <button class="hover:border register text-white bg-[#20b2aa] hover:border-gray-400 rounded-xl py-2 px-5 hover:scale-110 hover:bg-[#002c7424] font-semibold duration-300" onClick={handlerec}>
               Register
             </button>
           </div>
