@@ -5,6 +5,7 @@ const bookRoutes = require('./routes/bookRoutes');
 const borrowRoutes = require('./routes/borrowRoutes');
 const wishlistRoutes = require('./routes/wishlistRoutes');
 const errorMiddleware = require('./middleware/errorMiddleware');
+const port = 5000;
 
 const app = express();
 
@@ -17,7 +18,7 @@ app.use('/api/borrows', borrowRoutes);
 app.use('/api/wishlists', wishlistRoutes);
 app.use(errorMiddleware);
 
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
 });
 
