@@ -138,7 +138,7 @@ export default function profile() {
         </div>
 
         <div class="xl:w-[80%] lg:w-[90%] md:w-[94%] sm:w-[96%] xs:w-[92%] mx-auto flex flex-col gap-4 justify-center items-center relative xl:-top-[6rem] lg:-top-[6rem] md:-top-[4rem] sm:-top-[3rem] xs:-top-[2.2rem]">
-        <h1 class="text-center text-[darkcyan] text-4xl font-serif">Samuel Abera</h1>
+        <h1 class="text-center text-[darkcyan] text-4xl font-serif">Author</h1>
 
 
           <div class="w-full flex gap-4 justify-center items-center ">

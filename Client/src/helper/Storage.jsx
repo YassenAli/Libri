@@ -21,20 +21,20 @@ export const getAuthUser = () => {
         }
 }};
 
-export const getAccessToken = () => {
-    return localStorage.getItem("accessToken");
+// export const getAccessToken = () => {
+//     return localStorage.getItem("accessToken");
 
-};
+// };
 
-export const getEmail = () => {
-    if(!getAccessToken()) return null;
-    const decode = jwtDecode(getAccessToken());
-    return decode.email;
-}
+// export const getEmail = () => {
+//     if(!getAccessToken()) return null;
+//     const decode = jwtDecode(getAccessToken());
+//     return decode.email;
+// }
 
-export const getRefreshToken = () => {
-    return localStorage.getItem("refreshToken");
-};
+// export const getRefreshToken = () => {
+//     return localStorage.getItem("refreshToken");
+// };
 
 
 export const removeAuthUser = () =>{
