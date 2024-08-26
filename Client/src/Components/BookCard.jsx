@@ -1,51 +1,38 @@
-import React from "react";
-import "./components.css";
-import { MdAccessTime } from "react-icons/md";
-import { IoLocationOutline } from "react-icons/io5";
-import { TbTicketOff } from "react-icons/tb";
-import { TbTicket } from "react-icons/tb";
-import { BsCalendar2Event } from "react-icons/bs";
+// import React, { useState } from "react";
+// import "./components.css";
+// import { MdAccessTime } from "react-icons/md";
+// import { IoLocationOutline } from "react-icons/io5";
+// import { TbTicketOff } from "react-icons/tb";
+// import { TbTicket } from "react-icons/tb";
+// import { BsCalendar2Event } from "react-icons/bs";
 
-const Ticket = ({ props, isBooked, handleCancel, handleBook }) => {
-  return (
-    <div className="event-card">
-      <div className="time-box">
-        <div className="time-icon">
-          <BsCalendar2Event />
-          <div className="date">{props.date}</div>
-        </div>
-        <div className="time">
-          <MdAccessTime style={{ marginBottom: "3px" }} /> {props.time}
-        </div>
-      </div>
+// const Ticket = ({ props, handleCardClick }) => {
+//   const [showModal, setShowModal] = useState(false);
+//   const [selectedBook, setSelectedBook] = useState(null);
+//   return (
+//     <div
+//     className="img-container"
+//     key={props.id}
+//     onClick={() => handleCardClick([props])}
+//   >
+//     <div className="img-subcontainer">
+//       <img
+//         src={`https://raw.githubusercontent.com/rishikumarr/images/main/hand-picked-books/${book.image}`}
+//         className="book-img"
+//         id={props.id}
+//         alt={props.title}
+//       />
+//     </div>
+//     <div className="card-content flex">
+//       <h3 className="booktitle">{props.title}</h3>
+//       <div className="bookwrapper flex">
+//         <p className="default">- by </p>
+//         <p className="author">{props.author}</p>
+//       </div>
+//       <p className="genre">{props.genre}</p>
+//     </div>
+//   </div>
+//   );
+// };
 
-      <div className="location">
-        <div className="time-icon">
-          <IoLocationOutline />
-          <div className="date">{props.location}</div>
-        </div>
-      </div>
-
-      <div className="event-body">
-        <div className="event-name">{props.name}</div>
-        <div className="dsrp">{props.description}</div>
-        <div className="event-bottom"></div>
-      </div>
-
-      <div className="ticket-btn">
-        {isBooked && (
-          <button onClick={() => handleCancel(props.id)} className="cancel-btn">
-            <TbTicketOff fontSize={"21px"} />
-          </button>
-        )}
-        {!isBooked && (
-          <button onClick={() => handleBook(props.id)} className="book-btn">
-            <TbTicket fontSize={"21px"} />
-          </button>
-        )}
-      </div>
-    </div>
-  );
-};
-
-export default Ticket;
+// export default Ticket;

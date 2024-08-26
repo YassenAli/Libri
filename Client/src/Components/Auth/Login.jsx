@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../components.css";
 import { useNavigate } from "react-router-dom";
-import Cover from "../../imgs/2.jpg";
+import Cover from "../../imgs/libry.jpg";
 const Login = () => {
   const navigate = useNavigate();
   const handlerec = () => {
