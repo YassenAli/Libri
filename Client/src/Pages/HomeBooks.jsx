@@ -1,9 +1,13 @@
 import React, { useState } from "react";
+import BookCard from "../Components/BookCard";
+import BookDetails from "./BookDetails";
 import "../App.css";
+import "tailwindcss/tailwind.css";
 
 const Home = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedBook, setSelectedBook] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const books = [
     {
@@ -46,26 +50,6 @@ const Home = () => {
         "A Little Life follows four college classmates—broke, adrift, and buoyed only by their friendship and ambition—as they move to New York in search of fame and fortune.",
       price: 18,
     },
-    {
-      id: 3,
-      image: "little-life.jpeg",
-      title: "A Little Life",
-      author: "Yanagihara",
-      genre: "Biography",
-      description:
-        "A Little Life follows four college classmates—broke, adrift, and buoyed only by their friendship and ambition—as they move to New York in search of fame and fortune.",
-      price: 18,
-    },
-    {
-      id: 3,
-      image: "little-life.jpeg",
-      title: "A Little Life",
-      author: "Yanagihara",
-      genre: "Biography",
-      description:
-        "A Little Life follows four college classmates—broke, adrift, and buoyed only by their friendship and ambition—as they move to New York in search of fame and fortune.",
-      price: 18,
-    },
   ];
 
   const handleCardClick = (book) => {
@@ -78,82 +62,36 @@ const Home = () => {
     setSelectedBook(null);
   };
 
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filteredBooks = books.filter((book) =>
+    book.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="home-body">
-      
-      <div className="flex">
-        
-        <div className="home-container flex">
+      <div className="flex justify-center mt-4">
+        <input
+          type="text"
+          className="p-2 border border-gray-300 rounded-lg w-1/2"
+          placeholder="Search for books..."
+          value={searchTerm}
+          onChange={handleSearch}
+        />
+      </div>
+
+      <div className="flex justify-center mt-8">
+        <div className="home-container flex flex-wrap justify-center">
           <div className={`subcontainer ${showModal ? "show" : ""}`}>
-            
-            {books.map((book) => (
-              <div
-                className="img-container"
-                key={book.id}
-                onClick={() => handleCardClick(book)}
-              >
-                <div className="img-subcontainer">
-                  <img
-                    src={`https://raw.githubusercontent.com/rishikumarr/images/main/hand-picked-books/${book.image}`}
-                    className="book-img"
-                    id={book.id}
-                    alt={book.title}
-                  />
-                </div>
-                <div className="card-content flex">
-                  <h3 className="booktitle">{book.title}</h3>
-                  <div className="bookwrapper flex">
-                    <p className="default">- by </p>
-                    <p className="author">{book.author}</p>
-                  </div>
-                  <p className="genre">{book.genre}</p>
-                </div>
-              </div>
+            {filteredBooks.map((book) => (
+              <BookCard key={book.id} book={book} onClick={handleCardClick} />
             ))}
 
-            {/* Modal */}
             {showModal && selectedBook && (
-              <div className="book-popup">
-                <div className="book flex open">
-                  <img
-                    src={`https://raw.githubusercontent.com/rishikumarr/images/main/hand-picked-books/${selectedBook.image}`}
-                    className="book-front"
-                    alt={selectedBook.title}
-                  />
-                  <ul className="pages">
-                    <li className="page one"></li>
-                    <li className="page two"></li>
-                    <li className="page three"></li>
-                    <li className="page four"></li>
-                    <li className="page five"></li>
-                    <li className="page six"></li>
-                    <li className="page seven"></li>
-                  </ul>
-                  <div
-                    className="book-back"
-                    style={{ backgroundImage: 'url(https://raw.githubusercontent.com/rishikumarr/images/main/36.jpeg)' }}
-                  ></div>
-                </div>
-                <div className="popup-content">
-                  <div className="content-left">
-                    <button className="borw-btn">Borw</button>
-                  </div>
-                  <div className="content-right">
-                    <h3 className="modal-title">{selectedBook.title}</h3>
-                    <h6 className="modal-author">- {selectedBook.author}</h6>
-                    <div className="description">
-                      <p>{selectedBook.description}</p>
-                    </div>
-                    <div className="modal-genre">
-                      <h4>{selectedBook.genre}</h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <BookDetails book={selectedBook} closeModal={closeModal} />
             )}
-
-            {/* Overlay */}
-            {showModal && <div className="overlay" onClick={closeModal}></div>}
           </div>
         </div>
       </div>
