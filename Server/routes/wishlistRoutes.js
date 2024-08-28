@@ -1,11 +1,12 @@
-const express = require('express');
+import express from 'express';
+import { createWishlist, getAllWishlists, getWishlistById } from '../controllers/wishlistController.js';
+import authMiddleware from '../middleware/authMiddleware.js';
+
 const router = express.Router();
-const { getAllWishlists, getWishlistById, createWishlist } = require('../controllers/wishlistController');
-const authMiddleware = require('../middleware/authMiddleware');
 
 router.use(authMiddleware);
-router.get('/wishlists', getAllWishlists);
-router.get('/wishlists/:id', getWishlistById);
-router.post('/wishlists', createWishlist);
+router.get('/', getAllWishlists);
+router.get('/:id', getWishlistById);
+router.post('/', createWishlist);
 
-module.exports = router;
+export default router;

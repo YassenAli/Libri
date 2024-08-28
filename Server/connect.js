@@ -13,7 +13,7 @@ const PORT = process.env.PORT;
 
 import mysql from 'mysql';
 
-const connection = mysql.createConnection({
+let connection = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
@@ -39,11 +39,6 @@ connection.connect(function (err) {
 });
 
 
-// Check if the port is a valid number
-// const normalizedPort = parseInt(PORT, 10);
-// if (isNaN(normalizedPort)) {
-//     throw new Error("Port is not a valid number");
-// }
 
 const app = express();
 
@@ -59,4 +54,3 @@ app.use(errorMiddleware);
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
-

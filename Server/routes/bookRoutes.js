@@ -1,10 +1,11 @@
-const express = require('express');
+import express from 'express';
+import { createBook, getAllBooks, getBookById } from '../controllers/bookController.js';
+// import authMiddleware from '../middleware/authMiddleware.js';
+
 const router = express.Router();
-const { getAllBooks, getBookById, createBook } = require('../controllers/bookController');
-const authMiddleware = require('../middleware/authMiddleware');
 
-router.get('/books', getAllBooks);
-router.get('/books/:id', getBookById);
-router.post('/books', authMiddleware, createBook);
+router.get('/', getAllBooks);
+router.get('/:id', getBookById);
+router.post('/', createBook);
 
-module.exports = router;
+export default router;
