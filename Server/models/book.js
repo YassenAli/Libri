@@ -1,11 +1,19 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('./index');
+import 'dotenv/config';
+import { DataTypes, Model, Sequelize } from 'sequelize';
 
-const Book = sequelize.define('Book', {
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
+    host: process.env.DB_HOST,
+    dialect: 'mysql',
+    logging: console.log
+});
+
+export class Book extends Model {}
+
+Book.init({
     id: {
         type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true
     },
     title: {
         type: DataTypes.STRING,
@@ -15,14 +23,6 @@ const Book = sequelize.define('Book', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    // ISBN: {
-    //     type: DataTypes.STRING,
-    //     allowNull: false
-    // },
-    // publicationDate: {
-    //     type: DataTypes.DATE,
-    //     allowNull: false
-    // },
     genre: {
         type: DataTypes.STRING,
         allowNull: false
@@ -30,11 +30,81 @@ const Book = sequelize.define('Book', {
     description: {
         type: DataTypes.STRING,
         allowNull: false
-    },
-    coverImage: {
-        type: DataTypes.STRING,
-        allowNull: true
     }
+    // coverImage: {
+    //     type: DataTypes.STRING,
+    //     allowNull: true
+    // }
+}, {
+    sequelize,
+    modelName: 'Book',
+    timestamps: false
 });
 
-module.exports = Book;
+sequelize.sync()
+    .then(() => console.log("Database & tables created!"));
+
+// export class Book extends Model {
+//     @Attribute(DataTypes.INTEGER)
+//     @PrimaryKey
+//     @AutoIncrement
+//     id;
+
+//     @Attribute(DataTypes.STRING)
+//     @NotNull
+//     title;
+
+//     @Attribute(DataTypes.STRING)
+//     @NotNull
+//     author;
+
+//     @Attribute(DataTypes.STRING)
+//     @NotNull
+//     genre;
+
+//     @Attribute(DataTypes.STRING)
+//     @NotNull
+//     description;
+
+//     // @Attribute(DataTypes.STRING)
+//     // coverImage;
+// }
+
+
+
+
+
+
+
+// const { DataTypes } = require('sequelize');
+// const sequelize = require('./index');
+
+// const Book = sequelize.define('Book', {
+//     id: {
+//         type: DataTypes.INTEGER,
+//         autoIncrement: true,
+//         primaryKey: true
+//     },
+//     title: {
+//         type: DataTypes.STRING,
+//         allowNull: false
+//     },
+//     author: {
+//         type: DataTypes.STRING,
+//         allowNull: false
+//     },
+//     genre: {
+//         type: DataTypes.STRING,
+//         allowNull: false
+//     },
+//     description: {
+//         type: DataTypes.STRING,
+//         allowNull: false
+//     },
+//     coverImage: {
+//         type: DataTypes.STRING,
+//         allowNull: true
+//     }
+// });
+
+// module.exports = Book;

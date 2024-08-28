@@ -1,11 +1,12 @@
-const express = require('express');
+import express from 'express';
+import { createBorrow, getAllBorrows, getBorrowById } from '../controllers/borrowController.js';
+import authMiddleware from '../middleware/authMiddleware.js';
+
 const router = express.Router();
-const { getAllBorrows, getBorrowById, createBorrow } = require('../controllers/borrowController');
-const authMiddleware = require('../middleware/authMiddleware');
 
 router.use(authMiddleware);
-router.get('/borrows', getAllBorrows);
-router.get('/borrows/:id', getBorrowById);
-router.post('/borrows', createBorrow);
+router.get('/', getAllBorrows);
+router.get('/:id', getBorrowById);
+router.post('/', createBorrow);
 
-module.exports = router;
+export default router;
