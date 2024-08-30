@@ -1,7 +1,40 @@
 // src/components/BookCard.js
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import { TiHeart } from "react-icons/ti";
+import { getAuthUser, getToken } from "../helper/Storage";
+import { TiHeartFullOutline } from "react-icons/ti";
+import { TiHeartOutline } from "react-icons/ti";
 
 const BookCard = ({ book, onClick }) => {
+  const [isInWishlist, setIsInWishlist] = useState(false);
+
+  const handleWishlistToggle = async () => {
+    try {
+      if (isInWishlist) {
+        // Remove from wishlist
+        await axios.delete(`http://localhost:5000/api/wishlists/your-wishlist-id/books/${book.id}`, {
+          headers: {
+            Authorization: `Bearer ${getToken()}`,
+          },
+        });
+        setIsInWishlist(false);
+      } else {
+        // Add to wishlist
+        await axios.post(`http://localhost:5000/api/wishlists/your-wishlist-id/books`, {
+          bookId: book.id,
+        }, {
+          headers: {
+            Authorization: `Bearer ${getToken()}`,
+          },
+        });
+        setIsInWishlist(true);
+      }
+    } catch (err) {
+      console.error("Error updating wishlist:", err);
+    }
+  };
+
   return (
     <div className="img-container" onClick={() => onClick(book)}>
       <div className="img-subcontainer">
@@ -18,6 +51,13 @@ const BookCard = ({ book, onClick }) => {
           <p className="author">{book.author}</p>
         </div>
         <p className="genre">{book.genre}</p>
+        <button
+          className={`wishlist-button ${isInWishlist ? 'in-wishlist' : ''}`}
+          onClick={handleWishlistToggle}
+        >
+          {/* <TiHeart /> */}
+          {isInWishlist ? <TiHeartFullOutline/> : <TiHeartOutline/>}
+        </button>
       </div>
     </div>
   );

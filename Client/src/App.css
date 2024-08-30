@@ -58,7 +58,7 @@ body {
 
 
 /*************************************** NEW *************************/
-/*----------------------- HomeBooks.css -----------------------*/
+/*----------------------- Home.css -----------------------*/
 /* @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,700&display=swap');*,*::after,*::before{
   padding : 0;
   margin: 0;
@@ -302,7 +302,7 @@ flex-direction : column;
 
 .overlay{
   position: fixed;
-  background-color: rgb(146 218 222 / 50%);  
+  background-color: rgb(121 148 143 / 50%);  
   left :0;
   top :0;
   width: 100%;

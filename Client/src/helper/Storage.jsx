@@ -28,3 +28,25 @@ export const removeAuthUser = () =>{
 export const getToken = () => {
     return localStorage.getItem("Token");
 }
+export const getToken=()=>{
+// return localStorage.getItem("accessToken");
+}
+
+
+
+// export const getAccessToken = () => {
+//     return localStorage.getItem("accessToken");
+
+// };
+
+// export const getEmail = () => {
+//     if(!getAccessToken()) return null;
+//     const decode = jwtDecode(getAccessToken());
+//     return decode.email;
+// }
+
+// export const getRefreshToken = () => {
+//     return localStorage.getItem("refreshToken");
+// };
+
+

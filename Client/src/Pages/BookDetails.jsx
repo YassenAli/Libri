@@ -1,6 +1,8 @@
+// BookDetails.js
 import React, { useState } from "react";
+import axios from 'axios';
 
-const BookDetails = ({ book, closeModal }) => {
+const BookDetails = ({ book, closeModal, userId }) => {
   const [showDatePopup, setShowDatePopup] = useState(false);
   const [borrowDate, setBorrowDate] = useState("");
   const [returnDate, setReturnDate] = useState("");
@@ -11,11 +13,21 @@ const BookDetails = ({ book, closeModal }) => {
     setShowDatePopup(true);
   };
 
-  const handleDateSubmit = () => {
-    // Handle date submission logic here
-    console.log("Borrow Date:", borrowDate);
-    console.log("Return Date:", returnDate);
-    setShowDatePopup(false);
+  const handleDateSubmit = async () => {
+    try {
+      await axios.post('http://localhost:5000/api/borrows', {
+        userId,
+        bookId: book._id,
+        borrowDate,
+        returnDate
+      });
+      alert('Book borrowed successfully!');
+      setShowDatePopup(false);
+      closeModal(); // Close the modal after borrowing
+    } catch (error) {
+      console.error('Error borrowing book:', error);
+      alert('Error borrowing book. Please try again.');
+    }
   };
 
   return (
@@ -46,8 +58,7 @@ const BookDetails = ({ book, closeModal }) => {
         </div>
         <div className="popup-content">
           <div className="content-left">
-            <button className="borw-btn"
-              onClick={handleBorrowClick}>
+            <button className="borw-btn" onClick={handleBorrowClick}>
               Borrow
             </button>
           </div>
@@ -99,7 +110,8 @@ const BookDetails = ({ book, closeModal }) => {
               </button>
               <button
                 className="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg"
-                onClick={() => setShowDatePopup(false)}>
+                onClick={() => setShowDatePopup(false)}
+              >
                 Cancel
               </button>
             </div>
