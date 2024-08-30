@@ -1,11 +1,10 @@
-import { jwtDecode } from "jwt-decode";
 
 // COOKIES, LOCAL STORAGE
 export const setAuthUser = (data) => {
     // console.log("setAuth", data);
     // Storing the tokens and user data
-    localStorage.setItem("accessToken", data.accessToken);
-    localStorage.setItem("refreshToken", data.refreshToken);
+    console.log("storage.js", data);
+    localStorage.setItem("Token", data.token);
     localStorage.setItem("user", JSON.stringify(data));
 };
 
@@ -23,10 +22,12 @@ export const getAuthUser = () => {
 
 export const removeAuthUser = () =>{
     if(localStorage.getItem('user')) localStorage.removeItem('user');
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("Token");
 }
 
+export const getToken = () => {
+    return localStorage.getItem("Token");
+}
 export const getToken=()=>{
 // return localStorage.getItem("accessToken");
 }
@@ -47,6 +48,5 @@ export const getToken=()=>{
 // export const getRefreshToken = () => {
 //     return localStorage.getItem("refreshToken");
 // };
-
 
 

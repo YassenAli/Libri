@@ -7,8 +7,6 @@ import bookRoutes from './routes/bookRoutes.js';
 import borrowRoutes from './routes/borrowRoutes.js';
 import wishlistRoutes from './routes/wishlistRoutes.js';
 
-console.log("port", process.env.PORT);
-
 const PORT = process.env.PORT;
 
 import mysql from 'mysql';
@@ -37,13 +35,6 @@ connection.connect(function (err) {
             })
     }
 });
-
-
-// Check if the port is a valid number
-// const normalizedPort = parseInt(PORT, 10);
-// if (isNaN(normalizedPort)) {
-//     throw new Error("Port is not a valid number");
-// }
 
 const app = express();
 
