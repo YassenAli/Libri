@@ -27,6 +27,11 @@ export const removeAuthUser = () =>{
     localStorage.removeItem("refreshToken");
 }
 
+export const getToken=()=>{
+// return localStorage.getItem("accessToken");
+}
+
+
 
 // export const getAccessToken = () => {
 //     return localStorage.getItem("accessToken");
