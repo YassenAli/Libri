@@ -1,4 +1,5 @@
 //to store my database connection details using dotenv for environment variables.
+import 'dotenv/config';
 
 module.exports = {
     development: {
