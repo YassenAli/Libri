@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { Sequelize } from 'sequelize';
 import { Book } from './book.js';
 import { Borrow } from './borrow.js';
