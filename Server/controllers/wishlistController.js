@@ -40,3 +40,37 @@ export const createWishlist = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }
+
+export const addBookToWishlist = async (req, res) => {
+    try {
+      const { bookId, wishlistId } = req.body;
+  
+      const wishlist = await Wishlist.findByPk(wishlistId);
+      if (!wishlist) return res.status(404).json({ message: 'Wishlist not found' });
+  
+      const book = await Book.findByPk(bookId);
+      if (!book) return res.status(404).json({ message: 'Book not found' });
+  
+      await wishlist.addBook(book);
+      res.json({ message: 'Book added to wishlist successfully' });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
+
+  export const deleteBookFromWishlist = async (req, res) => {
+    try {
+      const { bookId, wishlistId } = req.params;
+  
+      const wishlist = await Wishlist.findByPk(wishlistId);
+      if (!wishlist) return res.status(404).json({ message: 'Wishlist not found' });
+  
+      const book = await Book.findByPk(bookId);
+      if (!book) return res.status(404).json({ message: 'Book not found' });
+  
+      await wishlist.removeBook(book);
+      res.json({ message: 'Book removed from wishlist successfully' });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };

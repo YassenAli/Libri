@@ -40,3 +40,25 @@ export const createBorrow = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }
+
+export const unBorrowBook = async (req, res) => {
+    try {
+      const { borrowId } = req.params;
+  
+      const borrow = await Borrow.findByPk(borrowId);
+      if (!borrow) return res.status(404).json({ message: 'Borrow record not found' });
+  
+      const book = await Book.findByPk(borrow.bookId);
+      if (!book) return res.status(404).json({ message: 'Book not found' });
+  
+      borrow.returnDate = new Date();
+      await borrow.save();
+  
+      book.isAvailable = true; // Assuming you have an `isAvailable` column in Book model
+      await book.save();
+  
+      res.json({ message: 'Book un-borrowed successfully' });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
