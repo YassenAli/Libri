@@ -30,11 +30,12 @@ Book.init({
     description: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    coverImage: {
+        type: DataTypes.STRING,
+        defaultValue: 'https://placehold.co/150x200',
+        allowNull: true
     }
-    // coverImage: {
-    //     type: DataTypes.STRING,
-    //     allowNull: true
-    // }
 }, {
     sequelize,
     modelName: 'Book',

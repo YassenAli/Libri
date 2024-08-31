@@ -1,4 +1,4 @@
-import { Sequelize } from '@sequelize/core';
+import { Sequelize } from 'sequelize';
 import { Book } from './book.js';
 import { Borrow } from './borrow.js';
 import { User } from './user.js';
@@ -14,6 +14,20 @@ export const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER,
     models: [User, Book, Wishlist, Borrow],
 });
 
-// sequelize.sync({ force: false });
+User.hasMany(Book, { foreignKey: 'userId' });
+Book.belongsTo(User, { foreignKey: 'userId' });
 
-// module.exports = sequelize;
+User.hasMany(Borrow, { foreignKey: 'userId' });
+Borrow.belongsTo(User, { foreignKey: 'userId' });
+
+Book.hasMany(Borrow, { foreignKey: 'bookId' });
+Borrow.belongsTo(Book, { foreignKey: 'bookId' });
+
+User.hasOne(Wishlist, { foreignKey: 'userId' });
+Wishlist.belongsTo(User, { foreignKey: 'userId' });
+
+Wishlist.belongsToMany(Book, { through: 'WishlistBooks' });
+Book.belongsToMany(Wishlist, { through: 'WishlistBooks' });
+
+sequelize.sync()
+    // .then(() => console.log("Database & tables created!"));
