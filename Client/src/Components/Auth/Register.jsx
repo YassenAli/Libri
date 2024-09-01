@@ -33,8 +33,7 @@ const Register = () => {
       })
       .then((resp) => {
         setRegister({ ...register, loading: false, err: [] });
-        const { access, refresh } = resp.data;
-        // setAuthUser({ accessToken: access, refreshToken: refresh });
+        console.log("Register.js:", resp.data);
         setAuthUser(resp.data);
         navigate("/");
       })
@@ -60,7 +59,7 @@ const Register = () => {
               {error.msg}
             </Alert>
           ))}
-          <form action="" class="flex flex-col gap-4">
+          <form onSubmit={RegisterFun} class="flex flex-col gap-4">
             <input
               class="p-2 mt-8 rounded-xl border w-full"
               type="text"

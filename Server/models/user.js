@@ -28,7 +28,8 @@ User.init({
     },
     username: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     password: {
         type: DataTypes.STRING,
@@ -45,6 +46,7 @@ User.init({
     timestamps: false
 });
 
+sequelize.sync()
 
 
 // import { Attribute, AutoIncrement, NotNull, PrimaryKey } from '@sequelize/core/decorators-legacy';

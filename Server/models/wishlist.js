@@ -21,46 +21,4 @@ Wishlist.init({
     timestamps: false
 });
 
-// import { AllowNull, Attribute, AutoIncrement, NotNull, PrimaryKey } from '@sequelize/core/decorators-legacy';
-
-
-// export class Wishlist extends Model {
-//     @Attribute(DataTypes.INTEGER)
-//     @PrimaryKey
-//     @AutoIncrement
-//     id;
-
-//     @Attribute(DataTypes.STRING)
-//     @AllowNull
-//     title;
-
-//     @Attribute(DataTypes.INTEGER)
-//     @NotNull
-//     bookId;
-
-//     @Attribute(DataTypes.INTEGER)
-//     @NotNull
-//     userId;
-// }
-
-
-// const { DataTypes } = require('sequelize');
-// const sequelize = require('./index');
-
-// const Wishlist = sequelize.define('Wishlist', {
-//     id: {
-//         type: DataTypes.INTEGER,
-//         autoIncrement: true,
-//         primaryKey: true
-//     },
-//     bookId: {
-//         type: DataTypes.INTEGER,
-//         allowNull: false
-//     },
-//     userId: {
-//         type: DataTypes.INTEGER,
-//         allowNull: false
-//     }
-// });
-
-// module.exports = Wishlist;
+sequelize.sync()

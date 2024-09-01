@@ -33,10 +33,8 @@ const Login = () => {
       })
       .then((resp) => {
         setLogin({ ...Login, loading: false, err: [] });
-        const { access, refresh } = resp.data; // Extract tokens
-        // console.log("Tokens:", access, refresh);
-        // console.log("login data", resp.data)
-        // setAuthUser({ accessToken: access, refreshToken: refresh });
+        // const { access, refresh } = resp.data; 
+        console.log("Login.js:", resp.data);
         setAuthUser(resp.data);
         navigate("/");
       })
