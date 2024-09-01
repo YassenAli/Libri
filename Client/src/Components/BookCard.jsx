@@ -1,4 +1,3 @@
-// src/components/BookCard.js
 import React, { useState } from "react";
 import axios from "axios";
 import { TiHeart } from "react-icons/ti";
