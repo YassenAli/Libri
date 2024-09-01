@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { TiHeart } from 'react-icons/ti';
-import { getToken } from '../helper/Storage'; // Replace with your actual auth utility
+import { getToken, getAuthUser } from '../helper/Storage'; // Replace with your actual auth utility
 
 const Wishlist = () => {
   const [wishlistBooks, setWishlistBooks] = useState([]);
@@ -13,7 +13,7 @@ const Wishlist = () => {
     const fetchWishlist = async () => {
       setLoading(true);
       try {
-        const response = await axios.get('http://localhost:5000/api/wishlists/your-wishlist-id', {
+        const response = await axios.get(`http://localhost:5000/api/wishlists/${getAuthUser().WishlistId}`, {
           headers: {
             Authorization: `Bearer ${getToken()}`,
           },
@@ -31,7 +31,7 @@ const Wishlist = () => {
 
   const handleRemoveFromWishlist = async (bookId) => {
     try {
-      await axios.delete(`http://localhost:5000/api/wishlists/your-wishlist-id/books/${bookId}`, {
+      await axios.delete(`http://localhost:5000/api/wishlists/${getAuthUser().WishlistId}/${bookId}`, {
         headers: {
           Authorization: `Bearer ${getToken()}`,
         },
@@ -67,7 +67,7 @@ const Wishlist = () => {
                 {wishlistBooks.map(book => (
                   <tr key={book.id}>
                     <td className="py-4 px-6 border-b border-gray-200">
-                      <img src={`https://raw.githubusercontent.com/rishikumarr/images/main/hand-picked-books/${book.image}`} alt={book.title} className="w-16 h-24 object-cover"/>
+                      <img src={`https://raw.githubusercontent.com/rishikumarr/images/main/hand-picked-books/${book.coverImage}`} alt={book.title} className="w-16 h-24 object-cover"/>
                     </td>
                     <td className="py-4 px-6 border-b border-gray-200 truncate">{book.title}</td>
                     <td className="py-4 px-6 border-b border-gray-200">{book.author}</td>
