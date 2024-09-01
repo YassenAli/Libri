@@ -30,7 +30,7 @@ const Home = () => {
 
       setBooks({ ...books, loading: true });
       axios
-        .get("http://localhost:5000/api/books", {
+        .get("http://localhost:5000/api/books/", {
           params: { searchTerm: "" }, // Adjust if needed
         })
         .then((resp) => {

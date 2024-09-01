@@ -8,7 +8,7 @@ export default function Profile({ userId }) {
     // Fetch borrowed books from the API
     const fetchBorrowedBooks = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/borrows?userId=${userId}`);
+        const response = await axios.get(`http://localhost:5000/api/borrows/?userId=${userId}`);
         setBorrowedBooks(response.data);
       } catch (error) {
         console.error('Error fetching borrowed books:', error);
@@ -67,7 +67,7 @@ export default function Profile({ userId }) {
                       <tr key={borrow._id}>
                         <td className="py-4 px-6 border-b border-gray-200">
                           <img
-                            src={`https://raw.githubusercontent.com/rishikumarr/images/main/hand-picked-books/${borrow.book.image}`}
+                            src={`https://raw.githubusercontent.com/rishikumarr/images/main/hand-picked-books/${borrow.book.coverImage}`}
                             alt={borrow.book.title}
                             className="w-16 h-24 object-cover"
                           />

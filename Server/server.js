@@ -1,8 +1,8 @@
 import cors from 'cors';
 import 'dotenv/config';
 import express from 'express';
-import { connectDB } from './config/config.js';
-import { sequelize } from './models/index.js';
+// import { connectDB } from './config/config.js';
+import { connectDB } from './models/index.js';
 import errorMiddleware from './middleware/errorMiddleware.js';
 import authRoutes from './routes/authRoutes.js';
 import bookRoutes from './routes/bookRoutes.js';

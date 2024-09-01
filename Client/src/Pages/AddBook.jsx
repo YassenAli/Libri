@@ -31,10 +31,9 @@ export default function AddBook() {
   useEffect(() => {
     setBookData({ ...bookData, loading: true });
     axios
-      .get("http://localhost:5000/api/books", {
+      .get("http://localhost:5000/api/books/", {
         headers: {
-          Authorization: `Bearer${getToken()}`, //${getAccessToken()}
-          // token: getAuthUser().token
+          Authorization: `Bearer ${getToken()}`
         },
       })
       .then((resp) => {
@@ -51,13 +50,13 @@ export default function AddBook() {
 
   //HANDLE CHANGE
   const handleChange = (e) => {
-    const { title, value } = e.target;
-    setBookData({ ...bookData, [title]: value });
+    const { name, value } = e.target;
+    setBookData({ ...bookData, [name]: value });
   };
 
   // CREATE book ON SUBMIT
   const createBook = (e) => {
-    e.prbookDefault();
+    e.preventDefault();
     setBookData({ ...bookData, loading: true });
     const formData = new FormData();
     formData.append("title", bookData.title);
@@ -69,15 +68,13 @@ export default function AddBook() {
       formData.append("img", img.current.files[0]);
     }
     axios
-      .post("http://localhost:5000/api/books", formData, {
+      .post("http://localhost:5000/api/books/", formData, {
         headers: {
-          Authorization: `Bearer${getToken()}`, //${getAccessToken()}
-          // token: getAuthUser().token
-          "Content-Type": "multi-part/form-data", // عشان اقدر ابعت ملفات
+          Authorization: `Bearer ${getToken()}`,
+          "Content-Type": "multi-part/form-data",
         },
       })
       .then((resp) => {
-        // console.log(resp)
         setBookData({ ...bookData, success: "Book Added Successfully" });
         img.current.files = null;
       })

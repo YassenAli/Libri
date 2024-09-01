@@ -13,7 +13,7 @@ const BookCard = ({ book, onClick }) => {
     try {
       if (isInWishlist) {
         // Remove from wishlist
-        await axios.delete(`http://localhost:5000/api/wishlists/your-wishlist-id/books/${book.id}`, {
+        await axios.delete(`http://localhost:5000/api/wishlists/${getAuthUser().WishlistId}/${book.id}`, {
           headers: {
             Authorization: `Bearer ${getToken()}`,
           },
@@ -21,8 +21,9 @@ const BookCard = ({ book, onClick }) => {
         setIsInWishlist(false);
       } else {
         // Add to wishlist
-        await axios.post(`http://localhost:5000/api/wishlists/your-wishlist-id/books`, {
+        await axios.post(`http://localhost:5000/api/wishlists/addToWishlist`, {
           bookId: book.id,
+          wishlistId: getAuthUser().wishlist.id,
         }, {
           headers: {
             Authorization: `Bearer ${getToken()}`,
@@ -39,7 +40,7 @@ const BookCard = ({ book, onClick }) => {
     <div className="img-container" onClick={() => onClick(book)}>
       <div className="img-subcontainer">
         <img
-          src={`https://raw.githubusercontent.com/rishikumarr/images/main/hand-picked-books/${book.image}`}
+          src={`https://raw.githubusercontent.com/rishikumarr/images/main/hand-picked-books/${book.coverImage}`}
           className="book-img"
           alt={book.title}
         />

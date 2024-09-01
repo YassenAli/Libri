@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import { DataTypes, Model, Sequelize } from 'sequelize';
+import { User } from './user.js';
 
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
     host: process.env.DB_HOST,
@@ -39,6 +40,14 @@ Book.init({
     isAvailable: {
         type: DataTypes.BOOLEAN,
         defaultValue: true
+    },
+    userId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+            model: User,
+            key: 'id'
+        }
     }
 }, {
     sequelize,

@@ -2,9 +2,7 @@ import { Book } from '../models/index.js';
 
 export const getAllBooks = async (req, res) => {
     try {
-        // console.log("getAllBooks");
         const books = await Book.findAll();
-        // console.log("books:", books);
         res.status(200).json(books);
     } catch (error) {
         console.error(error);
@@ -26,11 +24,14 @@ export const getBookById = async (req, res) => {
 
 export const createBook = async (req, res) => {
     try {
-        // console.log("req:", req.body);
         const { title, author, genre, description } = req.body;
-        // console.log("title: ", title);
+        console.log("req", req);
+
+        // const userId = 
+        // console.log("userId", userId);
+
         const book = await Book.create({ title, author, genre, description, bookCover: req.file?.filename });
-        // console.log("book:", book);
+        // const book = await Book.create({ title, author, genre, description, bookCover: req.file?.filename, userId });
         res.status(201).json(book);
     } catch (error) {
         console.error(error)
