@@ -1,19 +1,9 @@
 import 'dotenv/config';
-import { Sequelize } from 'sequelize';
 import { Book } from './book.js';
 import { Borrow } from './borrow.js';
 import { User } from './user.js';
 import { Wishlist } from './wishlist.js';
-
-export const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD,{
-    host: process.env.DB_HOST,
-    dialect: 'mysql',
-    database: process.env.DB_NAME,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT,
-    models: [User, Book, Wishlist, Borrow],
-});
+import { sequelize } from '../config/config.js';
 
 User.hasMany(Book, { foreignKey: 'userId' });
 Book.belongsTo(User, { foreignKey: 'userId' });
@@ -32,3 +22,5 @@ Book.belongsToMany(Wishlist, { through: 'WishlistBooks' });
 
 sequelize.sync()
     // .then(() => console.log("Database & tables created!"));
+
+export { User, Book, Borrow, Wishlist, sequelize };
