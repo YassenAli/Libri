@@ -1,15 +1,4 @@
-import { Book } from "../models/book.js";
-import { User } from "../models/user.js";
-import { Wishlist } from "../models/wishlist.js";
-
-export const getAllWishlists = async (req, res) => {
-    try {
-        const wishlists = await Wishlist.findAll();
-        res.status(200).json(wishlists);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-}
+import { Book, User, Wishlist } from "../models/index.js";
 
 export const getWishlistById = async (req, res) => {
     try {
@@ -17,7 +6,9 @@ export const getWishlistById = async (req, res) => {
         if (!wishlist) {
             return res.status(404).json({ message: 'Wishlist not found' });
         }
-        res.status(200).json(wishlist);
+        const books = await wishlist.getBooks();
+        const user = await wishlist.getUser();
+        res.status(200).json({ wishlist, books, user });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -52,7 +43,7 @@ export const addBookToWishlist = async (req, res) => {
       if (!book) return res.status(404).json({ message: 'Book not found' });
   
       await wishlist.addBook(book);
-      res.json({ message: 'Book added to wishlist successfully' });
+      res.json({ message: `${book.title} added to wishlist successfully` });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
