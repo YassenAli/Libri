@@ -1,12 +1,12 @@
 import express from 'express';
-import { createBorrow, getAllBorrows, getBorrowById } from '../controllers/borrowController.js';
 import authMiddleware from '../middleware/authMiddleware.js';
+import { createBorrow, getBorrowedBooks, returnBorrowedBook } from '../controllers/borrowController.js';
 
 const router = express.Router();
 
 router.use(authMiddleware);
-router.get('/', getAllBorrows);
-router.get('/:id', getBorrowById);
 router.post('/', createBorrow);
+router.get('/', getBorrowedBooks);
+router.put('/:id', returnBorrowedBook);
 
 export default router;

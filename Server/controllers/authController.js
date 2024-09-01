@@ -1,12 +1,13 @@
 import bcrypt from 'bcrypt';
-import { User } from '../models/user.js';
+import { User, Wishlist } from '../models/index.js';
 import generateToken from '../utils/generateToken.js';
 
 export const Register = async (req, res) => {
     try {
         const { email, username, password } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
-        const user = await User.create({ email, username, password: hashedPassword });
+        const user = await User.create({ email, username, password: hashedPassword, profilePicture: req.file?.filename });
+        await Wishlist.create({ userId: user.id });
         res.status(201).json(user);
     } catch (error) {
         res.status(500).json({ message: error.message });

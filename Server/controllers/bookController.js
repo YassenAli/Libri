@@ -1,4 +1,4 @@
-import { Book } from '../models/book.js';
+import { Book } from '../models/index.js';
 
 export const getAllBooks = async (req, res) => {
     try {
@@ -29,7 +29,7 @@ export const createBook = async (req, res) => {
         // console.log("req:", req.body);
         const { title, author, genre, description } = req.body;
         // console.log("title: ", title);
-        const book = await Book.create({ title, author, genre, description });
+        const book = await Book.create({ title, author, genre, description, bookCover: req.file?.filename });
         // console.log("book:", book);
         res.status(201).json(book);
     } catch (error) {

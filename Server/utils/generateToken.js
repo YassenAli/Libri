@@ -1,7 +1,8 @@
 import jwt from 'jsonwebtoken';
+import { Wishlist } from '../models';
 
 const generateToken = (user) => {
-    return jwt.sign({ id: user.id, name: user.username, email: user.email, password: user.password }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    return jwt.sign({ id: user.id, name: user.username, email: user.email, WishlistId: Wishlist.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 }
 
 export default generateToken;

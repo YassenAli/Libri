@@ -30,11 +30,16 @@ Book.init({
     description: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    coverImage: {
+        type: DataTypes.STRING,
+        defaultValue: 'https://placehold.co/150x200',
+        allowNull: true
+    },
+    isAvailable: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true
     }
-    // coverImage: {
-    //     type: DataTypes.STRING,
-    //     allowNull: true
-    // }
 }, {
     sequelize,
     modelName: 'Book',
@@ -42,7 +47,7 @@ Book.init({
 });
 
 sequelize.sync()
-    .then(() => console.log("Database & tables created!"));
+    // .then(() => console.log("Database & tables created!"));
 
 // export class Book extends Model {
 //     @Attribute(DataTypes.INTEGER)

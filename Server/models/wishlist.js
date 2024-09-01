@@ -14,14 +14,6 @@ Wishlist.init({
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
-    },
-    bookId: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    userId: {
-        type: DataTypes.INTEGER,
-        allowNull: false
     }
 }, {
     sequelize,

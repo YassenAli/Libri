@@ -1,5 +1,7 @@
 import 'dotenv/config';
 import { DataTypes, Model, Sequelize } from 'sequelize';
+// import validator from 'validator';
+
 
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
     host: process.env.DB_HOST,
@@ -20,7 +22,9 @@ User.init({
         allowNull: false,
         validate: {
             isEmail: true
-        }
+        },
+        // validate: [validator.isEmail, 'Invalid email'],
+        unique: true
     },
     username: {
         type: DataTypes.STRING,
@@ -30,9 +34,11 @@ User.init({
         type: DataTypes.STRING,
         allowNull: false
     },
-    // profilePicture: {
-    //     type: DataTypes.STRING
-    // }
+    profilePicture: {
+        type: DataTypes.STRING,
+        defaultValue: 'uploads/profile/profile.jpg',
+        allowNull: true
+    }
 }, {
     sequelize,
     modelName: 'User',
