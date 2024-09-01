@@ -14,7 +14,7 @@ const BookDetails = ({ book, closeModal, userId }) => {
 
   const handleDateSubmit = async () => {
     try {
-      await axios.post('http://localhost:5000/api/borrows', {
+      await axios.post('http://localhost:5000/api/borrows/', {
         userId,
         bookId: book._id,
         borrowDate,
@@ -34,7 +34,7 @@ const BookDetails = ({ book, closeModal, userId }) => {
       <div className="book-popup">
         <div className="book flex open">
           <img
-            src={`https://raw.githubusercontent.com/rishikumarr/images/main/hand-picked-books/${book.image}`}
+            src={`https://raw.githubusercontent.com/rishikumarr/images/main/hand-picked-books/${book.coverImage}`}
             className="book-front"
             alt={book.title}
           />

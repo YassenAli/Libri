@@ -15,6 +15,7 @@ router.route('/register')
 router.post('/login', Login);
 
 router.post('/upload-profile-picture', authMiddleware, upload.single('profilePicture'), (req, res) => {
+  console.log("req", req);
   const userId = req.user.id;
   const profilePicture = req.file.filename;
 
