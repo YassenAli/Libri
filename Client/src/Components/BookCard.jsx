@@ -12,7 +12,7 @@ const BookCard = ({ book, onClick }) => {
     try {
       if (isInWishlist) {
         // Remove from wishlist
-        await axios.delete(`http://localhost:5000/api/wishlists/${getAuthUser().WishlistId}/${book.id}`, {
+        await axios.put(`http://localhost:5000/api/wishlists/${getAuthUser().WishlistId}/${book.id}`, {
           headers: {
             Authorization: `Bearer ${getToken()}`,
           },
@@ -38,6 +38,14 @@ const BookCard = ({ book, onClick }) => {
   return (
     <div className="img-container" onClick={() => onClick(book)}>
       <div className="img-subcontainer">
+      <button
+          // className={`wishlist-button ${isInWishlist ? 'in-wishlist' : ''}`}
+          className="absolute top-0 right-0 p-2 me-1 z-5 text-[25px] text-[#ff146d]"
+          onClick={handleWishlistToggle}
+        >
+          {/* <TiHeart /> */}
+          {isInWishlist ? <TiHeartFullOutline  /> : <TiHeartOutline />}
+        </button>
         <img
           src={`https://raw.githubusercontent.com/rishikumarr/images/main/hand-picked-books/${book.coverImage}`}
           className="book-img"
@@ -51,13 +59,6 @@ const BookCard = ({ book, onClick }) => {
           <p className="author">{book.author}</p>
         </div>
         <p className="genre">{book.genre}</p>
-        <button
-          className={`wishlist-button ${isInWishlist ? 'in-wishlist' : ''}`}
-          onClick={handleWishlistToggle}
-        >
-          {/* <TiHeart /> */}
-          {isInWishlist ? <TiHeartFullOutline/> : <TiHeartOutline/>}
-        </button>
       </div>
     </div>
   );

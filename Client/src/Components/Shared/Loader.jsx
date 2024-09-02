@@ -4,11 +4,11 @@ import "../components.css";
 export default function Loader() {
   return (
     <div className="wrapper">
-      <div class="loader-book">
-        <div class="inner">
-          <div class="left"></div>
-          <div class="middle"></div>
-          <div class="right"></div>
+      <div className="loader-book">
+        <div className="inner">
+          <div className="left"></div>
+          <div className="middle"></div>
+          <div className="right"></div>
         </div>
         <ul>
           <li></li>

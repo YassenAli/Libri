@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import BookCard from "../Components/BookCard";
-import BookDetails from "./BookDetails";
+import BookDetails from "../Components/BookDetails";
 import "../App.css";
 import "tailwindcss/tailwind.css";
 import axios from "axios";
 import { getAuthUser } from "../helper/Storage";
+import Loader from "../Components/Shared/Loader";
 
 const Home = () => {
   const [showModal, setShowModal] = useState(false);
@@ -31,7 +32,7 @@ const Home = () => {
       setBooks({ ...books, loading: true });
       axios
         .get("http://localhost:5000/api/books/", {
-          params: { searchTerm: "" }, // Adjust if needed
+          params: { searchTerm: "" },
         })
         .then((resp) => {
           setBooks({ ...books, results: resp.data, loading: false });
@@ -68,33 +69,39 @@ const Home = () => {
 
   return (
     <div className="home-body">
-      <div className="flex justify-center mt-4">
-        <input
-          type="text"
-          className="p-2 border border-gray-300 rounded-lg w-1/2"
-          placeholder="Search for books..."
-          value={searchTerm}
-          onChange={handleSearch}
-        />
-      </div>
-
-      <div className="flex justify-center mt-8">
-        <div className="home-container flex flex-wrap justify-center">
-          <div className={`subcontainer ${showModal ? "show" : ""}`}>
-            {filteredBooks.map((book) => (
-              <BookCard
-                key={book.id}
-                book={book}
-                onClick={() => handleCardClick(book)}
-              />
-            ))}
-
-            {showModal && selectedBook && (
-              <BookDetails book={selectedBook} closeModal={closeModal} />
-            )}
+      {books.loading ? (
+        <Loader />
+      ) : (
+        <>
+          <div className="flex justify-center mt-4">
+            <input
+              type="text"
+              className="p-2 border border-gray-300 rounded-lg w-1/2"
+              placeholder="Search for books..."
+              value={searchTerm}
+              onChange={handleSearch}
+            />
           </div>
-        </div>
-      </div>
+
+          <div className="flex justify-center mt-8">
+            <div className="home-container flex flex-wrap justify-center">
+              <div className={`subcontainer ${showModal ? "show" : ""}`}>
+                {filteredBooks.map((book) => (
+                  <BookCard
+                    key={book.id}
+                    book={book}
+                    onClick={() => handleCardClick(book)}
+                  />
+                ))}
+
+                {showModal && selectedBook && (
+                  <BookDetails book={selectedBook} closeModal={closeModal} userId={getAuthUser().id} />
+                )}
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };

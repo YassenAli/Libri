@@ -2,7 +2,7 @@ import React from 'react'
 import { Outlet } from "react-router-dom";
 import './App.css';
 import SideBar from './Components/Shared/SideBar';
-// import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 
 export default function App() {

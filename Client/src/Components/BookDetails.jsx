@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from 'axios';
+import { Alert } from "bootstrap";
 
 const BookDetails = ({ book, closeModal, userId }) => {
   const [showDatePopup, setShowDatePopup] = useState(false);
@@ -18,16 +19,23 @@ const BookDetails = ({ book, closeModal, userId }) => {
         userId,
         bookId: book._id,
         borrowDate,
-        returnDate
+        returnDate,
       });
-      alert('Book borrowed successfully!');
+      // alert('Book borrowed successfully!');
+      <Alert variant="success">
+        <div>Book borrowed successfully!</div>
+      </Alert>
       setShowDatePopup(false);
-      closeModal(); // Close the modal after borrowing
+      closeModal();
     } catch (error) {
-      console.error('Error borrowing book:', error);
-      alert('Error borrowing book. Please try again.');
+      // console.error('Error borrowing book:', error);
+      // alert('Error borrowing book. Please try again.');
+      <Alert variant="success">
+      <div>Error borrowing book. Please try again.</div>
+    </Alert>
     }
   };
+  
 
   return (
     <>
@@ -51,7 +59,8 @@ const BookDetails = ({ book, closeModal, userId }) => {
             className="book-back"
             style={{
               backgroundImage:
-                "url(https://raw.githubusercontent.com/rishikumarr/images/main/36.jpeg)",
+                `url(https://raw.githubusercontent.com/rishikumarr/images/main/hand-picked-books/${book.coverImage})`,
+                
             }}
           ></div>
         </div>

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "../components.css";
 import { useNavigate } from "react-router-dom";
 import Cover from "../../imgs/2.jpg";
-import Alert from "react-bootstrap/Alert";
 import { setAuthUser } from "../../helper/Storage";
 
 import axios from "axios";
@@ -13,13 +12,12 @@ const Register = () => {
     navigate("/login");
   };
 
-
   const [register, setRegister] = useState({
     email: "",
     password: "",
     username: "",
     loading: "false",
-    err: [],
+    err: "",
   });
 
   const RegisterFun = (e) => {
@@ -42,26 +40,34 @@ const Register = () => {
         setRegister({
           ...register,
           loading: false,
-          err: errors.response?.data?.errors || [
-            "Email already registered. Please try a different email.",
-          ],
+          err: "Email already registered. Please try a different email.",
         });
       });
   };
 
   return (
-    <section class="bg-100  flex box-border justify-center items-center mt-[70px]">
-      <div class="bg-[#91c8c1] rounded-2xl flex max-w-3xl p-5 items-center">
-        <div class="md:w-1/2 px-8">
-          <h2 class="font-bold text-3xl text-[#2a626e] mb-[30px]">Register</h2>
-          {register.err.map((error, index) => (
-            <Alert key={index} variant={"danger"}>
-              {error.msg}
-            </Alert>
-          ))}
-          <form onSubmit={RegisterFun} class="flex flex-col gap-4">
+    <section className="bg-100  flex box-border justify-center items-center mt-[70px]">
+      <div className="bg-[#91c8c1] rounded-2xl flex max-w-3xl p-5 items-center">
+        <div className="md:w-1/2 px-8">
+          <h2 className="font-bold text-3xl text-[#2a626e] mb-[30px]">Register</h2>
+          {/* Error Alert */}
+          {register.err && (
+            <div
+              className="flex inline-flex justify-between bg-red-100 border border-red-400 text-red-700 px-4 py-3 my-2 rounded  "
+              role="alert"
+            >
+              <span className="block sm:inline pl-2">{register.err}</span>
+              <span
+                className="inline"
+                onClick={(e) => e.currentTarget.parentNode.remove()}
+              >
+     x
+              </span>
+            </div>
+          )}
+          <form onSubmit={RegisterFun} className="flex flex-col gap-4">
             <input
-              class="p-2 mt-8 rounded-xl border w-full"
+              className="p-2 mt-8 rounded-xl border w-full"
               type="text"
               name="name"
               placeholder="Username"
@@ -71,7 +77,7 @@ const Register = () => {
               }
             />
             <input
-              class="p-2  rounded-xl border w-full"
+              className="p-2  rounded-xl border w-full"
               type="email"
               name="email"
               placeholder="Email"
@@ -81,7 +87,7 @@ const Register = () => {
               }
             />
             <input
-              class="p-2 rounded-xl border w-full"
+              className="p-2 rounded-xl border w-full"
               type="password"
               name="password"
               id="password"
@@ -92,7 +98,7 @@ const Register = () => {
               }
             />
             <button
-              class="bg-[#2a626e] text-white py-2 rounded-xl hover:scale-105 duration-300 hover:bg-[#6dabb8] font-medium w-full"
+              className="bg-[#2a626e] text-white py-2 rounded-xl hover:scale-105 duration-300 hover:bg-[#6dabb8] font-medium w-full"
               type="submit"
               disabled={register.loading === true}
             >
@@ -100,19 +106,19 @@ const Register = () => {
             </button>
           </form>
 
-          <div class="mt-4 text-sm flex justify-between items-center container-mr">
-            <p class="mr-3 md:mr-0 ">If you already have an account..</p>
+          <div className="mt-4 text-sm flex justify-between items-center container-mr">
+            <p className="mr-3 md:mr-0 ">If you already have an account..</p>
             <button
-              class="hover:border register text-white bg-[#20b2aa] hover:border-gray-400 rounded-xl py-2 px-5 hover:scale-110 hover:bg-[#002c7424] font-semibold duration-300"
+              className="hover:border register text-white bg-[#20b2aa] hover:border-gray-400 rounded-xl py-2 px-5 hover:scale-110 hover:bg-[#002c7424] font-semibold duration-300"
               onClick={handlere}
             >
               Login
             </button>
           </div>
         </div>
-        <div class="md:block hidden w-1/2">
+        <div className="md:block hidden w-1/2">
           <img
-            class="rounded-2xl max-h-[1600px]"
+            className="rounded-2xl max-h-[1600px]"
             src={Cover}
             alt="login form image"
           />

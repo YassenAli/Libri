@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "../components.css";
 import { useNavigate } from "react-router-dom";
 import Cover from "../../imgs/libry.jpg";
-import Alert from "react-bootstrap/Alert";
 import axios from "axios";
 import { setAuthUser } from "../../helper/Storage";
 const Login = () => {
@@ -10,17 +9,12 @@ const Login = () => {
   const handlerec = () => {
     navigate("/signup");
   };
-  // const [isLoginActive, setIsLoginActive] = useState(true);
-
-  // const toggleForm = () => {
-  //   setIsLoginActive(!isLoginActive);
-  // };
 
   const [login, setLogin] = useState({
     username: "",
     password: "",
     loading: "false",
-    err: [],
+    err: "",
   });
 
   const LoginFun = (e) => {
@@ -33,7 +27,7 @@ const Login = () => {
       })
       .then((resp) => {
         setLogin({ ...Login, loading: false, err: [] });
-        // const { access, refresh } = resp.data; 
+        // const { access, refresh } = resp.data;
         console.log("Login.js:", resp.data);
         setAuthUser(resp.data);
         navigate("/");
@@ -51,19 +45,37 @@ const Login = () => {
   };
 
   return (
-    <section class="bg-100  flex box-border justify-center items-center mt-[70px]">
-      <div class="bg-[#91c8c1] rounded-2xl flex max-w-3xl p-5 items-center">
-        <div class="md:w-1/2 px-8">
-          <h2 class="font-bold text-3xl text-[#2a626e] mb-[30px]">Login</h2>
-          {login.err.map((error, index) => (
-            <Alert key={index} variant={"danger"}>
-              {error.msg}
-            </Alert>
-          ))}
+    <section className="bg-100  flex box-border justify-center items-center mt-[70px]">
+      <div className="bg-[gainsboro] rounded-2xl flex max-w-3xl p-5 items-center">
+        <div className="md:w-1/2 px-8">
+          <h2 className="font-bold text-3xl text-[#2a626e] mb-[30px]">Login</h2>
+          {/* Error Alert */}
+          {login.err && (
+            <div
+              className="flex inline-flex justify-between bg-red-100 border border-red-400 text-red-700 px-4 py-3 my-2 rounded  "
+              role="alert"
+            >
+              <span className="block sm:inline pl-2">{login.err}</span>
+              <span
+                className="inline"
+                onClick={(e) => e.currentTarget.parentNode.remove()}
+              >
+                <svg
+                  className="fill-current h-6 w-6"
+                  role="button"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <title>Close</title>
+                  <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                </svg>
+              </span>
+            </div>
+          )}
 
-          <form onSubmit={LoginFun} class="flex flex-col gap-4">
+          <form onSubmit={LoginFun} className="flex flex-col gap-4">
             <input
-              class="p-2 mt-8 rounded-xl border w-full"
+              className="p-2 mt-8 rounded-xl border w-full"
               type="text"
               name="name"
               placeholder="Username"
@@ -72,7 +84,7 @@ const Login = () => {
             />
 
             <input
-              class="p-2 rounded-xl border w-full"
+              className="p-2 rounded-xl border w-full"
               type="password"
               name="password"
               id="password"
@@ -81,26 +93,26 @@ const Login = () => {
               onChange={(e) => setLogin({ ...login, password: e.target.value })}
             />
             <button
-              class="bg-[#2a626e] text-white py-2 rounded-xl hover:scale-105 duration-300 hover:bg-[#6dabb8] font-medium w-full"
+              className="bg-[#20b2aa] text-white py-2 rounded-xl hover:scale-105 duration-300 hover:bg-[#6dabb8] font-medium w-full"
               type="submit"
             >
               Login
             </button>
           </form>
 
-          <div class="mt-4 text-sm flex justify-between items-center container-mr">
-            <p class="mr-3 md:mr-0 ">If you don't have an account..</p>
+          <div className="mt-4 text-sm flex justify-between items-center container-mr">
+            <p className="mr-3 md:mr-0 ">If you don't have an account..</p>
             <button
-              class="hover:border register text-white bg-[#20b2aa] hover:border-gray-400 rounded-xl py-2 px-5 hover:scale-110 hover:bg-[#002c7424] font-semibold duration-300"
+              className="hover:border register text-white bg-[#2a626e] hover:border-gray-400 rounded-xl py-2 px-5 hover:scale-110 hover:bg-[#002c7424] font-semibold duration-300"
               onClick={handlerec}
             >
               Register
             </button>
           </div>
         </div>
-        <div class="md:block hidden w-1/2">
+        <div className="md:block hidden w-1/2">
           <img
-            class="rounded-2xl max-h-[1600px]"
+            className="rounded-2xl max-h-[1600px]"
             src={Cover}
             alt="login form image"
           />
