@@ -20,7 +20,6 @@ export default function AddBook() {
     description: "",
     genre: "",
     author: "",
-    // img: "",
     err: "",
     success: null,
     reload: false,
@@ -33,7 +32,7 @@ export default function AddBook() {
     axios
       .get("http://localhost:5000/api/books/", {
         headers: {
-          Authorization: `Bearer ${getToken()}`
+          Authorization: `Bearer ${getToken()}`,
         },
       })
       .then((resp) => {
@@ -41,7 +40,10 @@ export default function AddBook() {
       })
       .catch((err) => {
         setBookData({
-          ...bookData,
+          title: "",
+          description: "",
+          genre: "",
+          author: "",
           loading: false,
           err: "somthing went wrong, please try again later!",
         });
@@ -89,31 +91,62 @@ export default function AddBook() {
   };
 
   return (
-    <div class="container mx-auto p-4">
+
+    <div className="container mx-auto p-4">
+      {bookData.loading ?(
+          <Loader />
+      ) : (
+        <>
       {/*  Page Title  */}
-      <h1 class="text-3xl font-bold text-[black] mb-6 mx-auto flex justify-center">
+      <h1 className="text-3xl font-bold text-[black] mb-6 mx-auto flex justify-center">
         Add Your Book
       </h1>
 
-      <form onSubmit={createBook} class="grid grid-cols-1 gap-6">
+      <form onSubmit={createBook} className="grid grid-cols-1 gap-6">
+        {/* Error Alert */}
         {bookData.err && (
-          <Alert variant={"danger"} className="auth-alert w-100">
-            {bookData.err}
-          </Alert>
+              <div className="flex inline-flex justify-between bg-red-100 border border-red-400 text-red-700 px-4 py-3 my-2 rounded  "
+              role="alert">
+              <span className="block sm:inline pl-2">
+                  {bookData.err}
+              </span>
+              <span className="inline" onClick={(e) => e.currentTarget.parentNode.remove()}>
+                  <svg className="fill-current h-6 w-6" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                      <title>Close</title>
+                      <path
+                          d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                  </svg>
+              </span>
+          </div>
         )}
+        {/* Success Alert */}
         {bookData.success && (
-          <Alert variant={"success"} className="auth-alert w-100">
-            {bookData.success}
-          </Alert>
+          <div
+            className="flex inline-flex justify-between bg-teal-100 border border-teal-400 text-teal-700 px-4 py-3 my-2 rounded "
+            role="alert"
+          >
+            <span className="block sm:inline pl-2">{bookData.success}</span>
+            <span className="inline" onClick={(e) => e.currentTarget.parentNode.remove()}>
+            <svg
+                className="fill-current h-6 w-6"
+                role="button"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <title>Close</title>
+                <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+              </svg>
+            </span>
+          </div>
         )}
         {/*  title  */}
-        <div class="p-2">
+        <div className="p-2">
           <input
             type="text"
             id="title"
             name="title"
             placeholder="Book Title"
-            class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#8c0327] focus:ring-[#8c0327] focus:ring-opacity-50 p-2"
+            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#8c0327] focus:ring-[#8c0327] focus:ring-opacity-50 p-2"
             style={{ backgroundColor: "#f6f6f6" }}
             value={bookData.title}
             onChange={handleChange}
@@ -121,14 +154,14 @@ export default function AddBook() {
         </div>
 
         {/*  Description  */}
-        <div class="p-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="p-2 grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <textarea
               id="description"
               name="description"
               rows="3"
               placeholder="Book Description"
-              class="block w-full h-48 rounded-md border-gray-300 shadow-sm focus:border-[#8c0327] focus:ring-[#8c0327] focus:ring-opacity-50 p-2"
+              className="block w-full h-48 rounded-md border-gray-300 shadow-sm focus:border-[#8c0327] focus:ring-[#8c0327] focus:ring-opacity-50 p-2"
               style={{ backgroundColor: "#f6f6f6" }}
               onChange={handleChange}
               value={bookData.description}
@@ -138,8 +171,8 @@ export default function AddBook() {
           {/*  Book Img Upload  */}
           <div>
             <label
-              for="img"
-              class="block w-full h-48 border-2 border-dashed border-gray-300 rounded-md cursor-pointer flex flex-col items-center justify-center bg-[#f6f6f6] hover:bg-gray-50"
+              htmlFor="img"
+              className="block w-full h-48 border-2 border-dashed border-gray-300 rounded-md cursor-pointer flex flex-col items-center justify-center bg-[#f6f6f6] hover:bg-gray-50"
             >
               <div className="flex flex-col items-center text-center">
                 <div className="mb-2">
@@ -154,21 +187,20 @@ export default function AddBook() {
               name="img"
               type="file"
               accept="image/*"
-              class="sr-only"
+              className="sr-only"
               ref={img}
-              required
             />
           </div>
         </div>
 
-        <div class="p-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="p-2 grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <input
               type="text"
               id="author"
               name="author"
               placeholder="Author Name"
-              class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#8c0327] focus:ring-[#8c0327] focus:ring-opacity-50 p-2"
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#8c0327] focus:ring-[#8c0327] focus:ring-opacity-50 p-2"
               style={{ backgroundColor: "#f6f6f6" }}
               onChange={handleChange}
               value={bookData.author}
@@ -181,7 +213,7 @@ export default function AddBook() {
               id="genre"
               name="genre"
               placeholder="Genre"
-              class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#8c0327] focus:ring-[#8c0327] focus:ring-opacity-50 p-2"
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#8c0327] focus:ring-[#8c0327] focus:ring-opacity-50 p-2"
               style={{ backgroundColor: "#f6f6f6" }}
               onChange={handleChange}
               value={bookData.genre}
@@ -190,15 +222,17 @@ export default function AddBook() {
           </div>
         </div>
 
-        <div class="col-span-full mt-6 p-2">
+        <div className="col-span-full mt-6 p-2">
           <button
             type="submit"
-            class="block w-full bg-[#20b2aa] hover:bg-[#15635f] text-white font-bold py-3 px-4 rounded-full"
+            className="block w-full bg-[#20b2aa] hover:bg-[#15635f] text-white font-bold py-3 px-4 rounded-full"
           >
             Add Book
           </button>
         </div>
       </form>
+      </>
+    )}
     </div>
   );
 }

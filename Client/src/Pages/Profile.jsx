@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
+import { getAuthUser } from "../helper/Storage";
 
-export default function Profile({ userId }) {
+export default function Profile({  }) {
   const [borrowedBooks, setBorrowedBooks] = useState([]);
+  // let userId =getAuthUser().id
 
   useEffect(() => {
     // Fetch borrowed books from the API
     const fetchBorrowedBooks = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/borrows/?userId=${userId}`);
+        const response = await axios.get(`http://localhost:5000/api/borrows/?userId=${getAuthUser().id}`);
         setBorrowedBooks(response.data);
       } catch (error) {
         console.error('Error fetching borrowed books:', error);
@@ -16,7 +18,7 @@ export default function Profile({ userId }) {
     };
     
     fetchBorrowedBooks();
-  }, [userId]);
+  }, [getAuthUser().id]);
 
   const handleRelease = async (borrowId) => {
     try {
