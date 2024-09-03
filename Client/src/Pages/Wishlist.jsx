@@ -64,6 +64,7 @@ const Wishlist = () => {
               Your Wishlist
             </h1>
 
+            {/* table of wishList */}
             <div className="shadow-lg rounded-lg overflow-hidden mx-3 md:mx-4">
               <table className="w-full table-fixed">
                 <thead>
