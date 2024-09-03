@@ -86,7 +86,7 @@ const Home = () => {
           <div className="flex justify-center mt-8">
             <div className="home-container flex flex-wrap justify-center">
               <div className={`subcontainer ${showModal ? "show" : ""}`}>
-                {filteredBooks.map((book) => (
+                {books.results.map((book) => (
                   <BookCard
                     key={book.id}
                     book={book}
@@ -95,7 +95,7 @@ const Home = () => {
                 ))}
 
                 {showModal && selectedBook && (
-                  <BookDetails book={selectedBook} closeModal={closeModal} userId={getAuthUser().id} />
+                  <BookDetails book={selectedBook} closeModal={closeModal} />
                 )}
               </div>
             </div>

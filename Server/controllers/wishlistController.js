@@ -8,7 +8,7 @@ export const getWishlistById = async (req, res) => {
         }
         const books = await wishlist.getBooks();
         const user = await wishlist.getUser();
-        res.status(200).json({ books });
+        res.status(200).json( books );
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

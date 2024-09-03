@@ -18,7 +18,9 @@ export const Register = async (req, res) => {
         const user = await User.create({ email, username, password: hashedPassword, profilePicture: req.file?.filename });
 
         await Wishlist.create({ userId: user.dataValues.id });
-        res.status(201).json(user);
+        const token = await generateToken(user);
+        
+        res.status(201).json({ token });
     } catch (error) {
         console.log("error", error);
         res.status(500).json({ message: error.message });
@@ -36,7 +38,7 @@ export const Login = async (req, res) => {
         if (!isPasswordValid) {
             return res.status(400).json({ message: 'Invalid Username or Password' });
         }
-        const token = generateToken(user);
+        const token = await generateToken(user);
         res.status(200).json({ token });
     } catch (error) {
         res.status(500).json({ message: error.message });

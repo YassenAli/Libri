@@ -27,7 +27,14 @@ export const getBorrowedBooks = async (req, res) => {
     try {
         const userId = req.user.id;
         const borrows = await Borrow.findAll({ where: { userId } });
-        res.status(200).json(borrows);
+        const borrowedBooks = await Promise.all(borrows.map(async (borrow) => {
+            const book = await Book.findByPk(borrow.bookId);
+            return {
+                borrowId: borrow.id,
+                book: book,
+            };
+        }));
+        res.status(200).json(borrowedBooks);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -35,13 +42,8 @@ export const getBorrowedBooks = async (req, res) => {
 
 export const returnBorrowedBook = async (req, res) => {
     try {
-        const userId = req.user.id;
-        console.log("userId", userId);
-        // const borrow = await Borrow.findOne({ where: { id: req.params.id} });
         const borrow = await Borrow.findByPk(req.params.id);
-        console.log("borrow", borrow);
         const book = await Book.findByPk(borrow.bookId);
-        console.log("book", book);
         if (!book) {
             return res.status(404).json({ message: 'Book not found' });
         }
@@ -50,11 +52,10 @@ export const returnBorrowedBook = async (req, res) => {
             return res.status(404).json({ message: 'Borrow not found' });
         }
 
-        borrow.returnDate = new Date();
-        await borrow.save();
-
         book.isAvailable = true;
         await book.save();
+
+        await borrow.destroy();
 
         res.status(200).json({ message: 'Book returned successfully' });
     } catch (error) {
