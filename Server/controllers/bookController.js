@@ -25,7 +25,8 @@ export const getBookById = async (req, res) => {
 export const createBook = async (req, res) => {
     try {
         const { title, author, genre, description } = req.body;
-        console.log("req", req);
+        // console.log("req", req);
+        console.log("req.createbook", req.body);
 
         // const userId = 
         // console.log("userId", userId);

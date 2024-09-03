@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { getToken, getAuthUser } from "../helper/Storage"; // Replace with your actual auth utility
+import { getToken, getAuthUser, getdecodedToken } from "../helper/Storage"; // Replace with your actual auth utility
 import Loader from "../Components/Shared/Loader";
 
  // Replace with your actual auth utility
@@ -15,7 +15,7 @@ const Wishlist = () => {
       setLoading(true);
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/wishlists/${getAuthUser().WishlistId}`,
+          `http://localhost:5000/api/wishlists/${getdecodedToken().WishlistId}`,
           {
             headers: {
               Authorization: `Bearer ${getToken()}`,
@@ -37,7 +37,7 @@ const Wishlist = () => {
     try {
       await axios.delete(
         `http://localhost:5000/api/wishlists/${
-          getAuthUser().WishlistId
+          getdecodedToken().WishlistId
         }/${bookId}`,
         {
           headers: {
@@ -51,6 +51,8 @@ const Wishlist = () => {
     }
   };
 
+  console.log("wishlistBooks", wishlistBooks);
+  console.log("decodedToken", getdecodedToken());
   return (
     <>
       {loading ? (
