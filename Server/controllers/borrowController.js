@@ -34,7 +34,6 @@ export const getBorrowedBooks = async (req, res) => {
                 book: book,
             };
         }));
-        // console.log("books", books);
         res.status(200).json(borrowedBooks);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -43,7 +42,6 @@ export const getBorrowedBooks = async (req, res) => {
 
 export const returnBorrowedBook = async (req, res) => {
     try {
-        // const userId = req.user.id;
         const borrow = await Borrow.findByPk(req.params.id);
         const book = await Book.findByPk(borrow.bookId);
         if (!book) {
