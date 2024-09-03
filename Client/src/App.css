@@ -11,28 +11,33 @@ body {
   flex-direction: column;
   height: 100vh;
   background: var(--app-container);
+  overflow-x: hidden; /* Hide horizontal scrolling on the entire dashboard */
 }
 
 .user-dashboard__content {
   display: flex;
   flex-grow: 1;
+  overflow-y: hidden; /* Prevent vertical scrolling on the entire content area */
+  overflow-x: hidden; /* Ensure no horizontal scroll in this section */
+  width: 100%; /* Ensure it takes the full width of the container */
 }
 
 .user-dashboard__projects-section {
   flex-grow: 1;
   padding: 10px;
-  /* padding-bottom: 0px; */
-  background-color: rgb(211 239 235);
+  background-color: rgb(211, 239, 235);
   border-radius: 28px;
-  /* margin-right: 50px; */
-  /* margin-bottom: -12px; */
+  /* margin-top: -12px;*/
+  /* margin-right: -12px; */
   display: flex;
   flex-direction: column;
-  height: calc(105vh - 101px);
-  /* margin-left: 10px; */
-  margin-top: -12px;
-  margin-right: -12px;
+  height: calc(100vh - 101px); /* Adjust this to ensure the section takes up the correct height */
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: hidden; /* Ensure no horizontal scrolling */
+  box-sizing: border-box; /* Include padding and border in the element's width */
+  width: 100%; /* Make sure it doesn't exceed the full width */
 }
+
 .app-section {
   flex-grow: 1;
   padding: 24px;
@@ -41,17 +46,23 @@ body {
   margin: 16px;
   display: flex;
   flex-direction: column;
-  height: calc(98vh - 20px); 
+  height: calc(98vh - 20px);
+  overflow-x: hidden; /* Hide horizontal scrolling */
 }
-
 
 .user-dashboard__project-boxes {
-  /* display: flex; */
-  flex-wrap: wrap;
-  overflow-y:hidden;
-  height: calc(100% - 48px); /* Subtract the header height */
   flex-grow: 1;
+  overflow-y: auto; /* Enable vertical scrolling for the project boxes */
+  height: 100%; /* Ensure it takes up the full height */
+  width: 100%; /* Ensure it doesn't cause horizontal overflow */
+  box-sizing: border-box; /* Include padding and border in the element's width */
 }
+
+.user-dashboard__project-boxes > * {
+  max-width: 100%; /* Prevent child elements from exceeding 100% width */
+  box-sizing: border-box; /* Ensure padding and borders are included in width */
+}
+
 
 
 
@@ -152,7 +163,7 @@ flex-direction : column;
   grid-template-rows: repeat(5,34em);
   grid-template-columns: repeat(4,24em);
   grid-row-gap: 6em;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
 }
 
 ::-webkit-scrollbar{
@@ -190,6 +201,8 @@ flex-direction : column;
   overflow: hidden;
   transition: 0.5s ease-in;
   border-radius: var(--borderRad2);
+  position: relative; /* Ensure this container is positioned relative */
+  cursor: pointer;
 }
 
 .img-container:hover .book-img{
@@ -203,6 +216,10 @@ flex-direction : column;
   width: 100%;
   height: 100%;
   border-radius: var(--borderRad2);
+  position: relative;
+}
+.wishlist-btn{
+
 }
 
 .book-img{

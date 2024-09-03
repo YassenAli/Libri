@@ -45,7 +45,7 @@ const Login = () => {
   };
 
   return (
-    <section className="bg-100  flex box-border justify-center items-center mt-[70px]">
+    <section className="bg-90  flex box-border justify-center items-center mt-[30px]">
       <div className="bg-[gainsboro] rounded-2xl flex max-w-3xl p-5 items-center">
         <div className="md:w-1/2 px-8">
           <h2 className="font-bold text-3xl text-[#2a626e] mb-[30px]">Login</h2>
@@ -100,8 +100,8 @@ const Login = () => {
             </button>
           </form>
 
-          <div className="mt-4 text-sm flex justify-between items-center container-mr">
-            <p className="mr-3 md:mr-0 ">If you don't have an account..</p>
+          <div className="mt-4 text-sm flex justify-between items-center container-mr ">
+            <p className="mr-3 md:mr-0  text-[gray]">don't have an account</p>
             <button
               className="hover:border register text-white bg-[#2a626e] hover:border-gray-400 rounded-xl py-2 px-5 hover:scale-110 hover:bg-[#002c7424] font-semibold duration-300"
               onClick={handlerec}

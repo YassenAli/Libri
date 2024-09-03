@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.get('/', getAllBooks);
 router.get('/:id', getBookById);
-router.post('/', upload.single('bookCover'), createBook);
+router.post('/', upload.single('coverImage'), createBook);
 
 export default router;

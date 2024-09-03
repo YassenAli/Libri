@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { getToken, getAuthUser, getdecodedToken } from "../helper/Storage"; // Replace with your actual auth utility
+import { getToken, getAuthUser, getdecodedToken } from "../helper/Storage"; 
 import Loader from "../Components/Shared/Loader";
-
- // Replace with your actual auth utility
 
 const Wishlist = () => {
   const [wishlistBooks, setWishlistBooks] = useState([]);
@@ -33,6 +31,8 @@ const Wishlist = () => {
     fetchWishlist();
   }, []);
 
+  console.log("token", getdecodedToken());
+  
   const handleRemoveFromWishlist = async (bookId) => {
     try {
       await axios.delete(
@@ -51,44 +51,42 @@ const Wishlist = () => {
     }
   };
 
-  console.log("wishlistBooks", wishlistBooks);
-  console.log("decodedToken", getdecodedToken());
   return (
     <>
       {loading ? (
         <Loader />
       ) : error ? (
-        <p className="text-red-500 justfiy-center">{error}</p>
+        <p className="text-red-500 justify-center">{error}</p>
       ) : (
-        <div className="relative h-[400px] from-indigo-600 via-indigo-700">
+        <div className="relative h-[600px] from-indigo-600 via-indigo-700">
           <div className="flex flex-col gap-4 justify-center items-center w-full h-full px-3 md:px-0">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#0cafa7]">
               Your Wishlist
             </h1>
 
-            {/* table of wishList */}
-            <div className="shadow-lg rounded-lg overflow-hidden mx-3 md:mx-4">
-              <table className="w-full table-fixed">
+            {/* Scrollable Table */}
+            <div className="shadow-lg rounded-lg overflow-hidden mx-3 md:mx-4 h-[500px] overflow-y-scroll">
+              <table className="w-full table-fixed  h-full">
                 <thead>
-                  <tr className="bg-gray-100">
-                    <th className="w-1/4 py-4 px-6 text-left text-gray-600 font-bold uppercase">
+                  <tr className="bg-[#ddd]">
+                    <th className="w-1/5 py-4 px-6 text-left text-gray-600 font-bold uppercase">
                       Book img
                     </th>
-                    <th className="w-1/4 py-4 px-6 text-left text-gray-600 font-bold uppercase">
+                    <th className="w-1/5 py-4 px-6 text-left text-gray-600 font-bold uppercase">
                       Book title
                     </th>
-                    <th className="w-1/4 py-4 px-6 text-left text-gray-600 font-bold uppercase">
+                    <th className="w-1/5 py-4 px-6 text-left text-gray-600 font-bold uppercase">
                       Author
                     </th>
-                    <th className="w-1/4 py-4 px-6 text-left text-gray-600 font-bold uppercase">
+                    <th className="w-1/5 py-4 px-6 text-left text-gray-600 font-bold uppercase">
                       Genre
                     </th>
-                    <th className="w-1/4 py-4 px-6 text-left text-gray-600 font-bold uppercase">
+                    <th className="w-1/5 py-4 px-6 text-left text-gray-600 font-bold uppercase">
                       Action
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white">
+                <tbody className="bg-white overflow-y-scroll">
                   {wishlistBooks.map((book) => (
                     <tr key={book.id}>
                       <td className="py-4 px-6 border-b border-gray-200">
