@@ -40,13 +40,13 @@ const Register = () => {
         setRegister({
           ...register,
           loading: false,
-          err: "Email already registered. Please try a different email.",
+          err: "Email already registered.try a different email.",
         });
       });
   };
 
   return (
-    <section className="bg-100  flex box-border justify-center items-center mt-[70px]">
+    <section className="bg-90  flex box-border justify-center items-center mt-[30px]">
       <div className="bg-[#91c8c1] rounded-2xl flex max-w-3xl p-5 items-center">
         <div className="md:w-1/2 px-8">
           <h2 className="font-bold text-3xl text-[#2a626e] mb-[30px]">Register</h2>
@@ -61,7 +61,15 @@ const Register = () => {
                 className="inline"
                 onClick={(e) => e.currentTarget.parentNode.remove()}
               >
-     x
+                <svg
+                  className="fill-current h-6 w-6"
+                  role="button"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <title>Close</title>
+                  <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                </svg>
               </span>
             </div>
           )}
@@ -107,7 +115,7 @@ const Register = () => {
           </form>
 
           <div className="mt-4 text-sm flex justify-between items-center container-mr">
-            <p className="mr-3 md:mr-0 ">If you already have an account..</p>
+            <p className="mr-3 md:mr-0 text-[gray]">already have an account</p>
             <button
               className="hover:border register text-white bg-[#20b2aa] hover:border-gray-400 rounded-xl py-2 px-5 hover:scale-110 hover:bg-[#002c7424] font-semibold duration-300"
               onClick={handlere}

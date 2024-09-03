@@ -26,7 +26,7 @@ export const createBook = async (req, res) => {
     try {
         const { title, author, genre, description } = req.body;
 
-        const book = await Book.create({ title, author, genre, description, bookCover: req.file?.filename });
+        const book = await Book.create({ title, author, genre, description, coverImage: req.file?.filename });
         // const book = await Book.create({ title, author, genre, description, bookCover: req.file?.filename, userId });
         res.status(201).json(book);
     } catch (error) {

@@ -14,7 +14,7 @@ import "../components.css";
 
 const Logout = () => {
   removeAuthUser();
-  useNavigate("/");
+  useNavigate("/login");
 };
 
 export default function SideBar() {
