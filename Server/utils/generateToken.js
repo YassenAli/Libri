@@ -21,4 +21,3 @@ const generateToken = async (user) => {
 };
 
 export default generateToken;
-// module.exports = generateToken;
