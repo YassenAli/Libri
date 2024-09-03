@@ -1,11 +1,21 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import { Alert } from "bootstrap";
+import { getToken, getdecodedToken } from "../helper/Storage";
 
-const BookDetails = ({ book, closeModal, userId }) => {
+const BookDetails = ({ book, closeModal }) => {
   const [showDatePopup, setShowDatePopup] = useState(false);
   const [borrowDate, setBorrowDate] = useState("");
   const [returnDate, setReturnDate] = useState("");
+
+  // console.log("BookDetails -> token", getToken());
+
+
+  const userId = getdecodedToken().id;
+  // console.log("BookDetails -> book", book);
+  // console.log("BookDetails ", getAuthUser());
+
+  // console.log("BookDetails -> userId", userId);
 
   if (!book) return null;
 
@@ -14,12 +24,20 @@ const BookDetails = ({ book, closeModal, userId }) => {
   };
 
   const handleDateSubmit = async () => {
+    console.log("BookDetails -> borrowDate", borrowDate);
+    console.log("BookDetails -> returnDate", returnDate);
+    console.log("BookDetails -> userId", userId);
+    console.log("BookDetails -> book.id", book.id);
     try {
       await axios.post('http://localhost:5000/api/borrows/', {
         userId,
-        bookId: book._id,
+        bookId: book.id,
         borrowDate,
-        returnDate,
+        returnDate
+      }, {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
       });
       // alert('Book borrowed successfully!');
       <Alert variant="success">

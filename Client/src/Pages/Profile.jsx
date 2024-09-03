@@ -1,16 +1,26 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
-import { getAuthUser } from "../helper/Storage";
+import { getdecodedToken, getToken } from "../helper/Storage";
+
 
 export default function Profile({  }) {
   const [borrowedBooks, setBorrowedBooks] = useState([]);
-  // let userId =getAuthUser().id
+
+  const userId = getdecodedToken().id;
+
 
   useEffect(() => {
+    // console.log("token", getToken());
+
     // Fetch borrowed books from the API
     const fetchBorrowedBooks = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/borrows/?userId=${getAuthUser().id}`);
+        const response = await axios.get(`http://localhost:5000/api/borrows/` , {
+          headers: {
+            Authorization: `Bearer ${getToken()}`,
+          }
+        });
+        // console.log("response", response);
         setBorrowedBooks(response.data);
       } catch (error) {
         console.error('Error fetching borrowed books:', error);
@@ -18,18 +28,27 @@ export default function Profile({  }) {
     };
     
     fetchBorrowedBooks();
-  }, [getAuthUser().id]);
+  }, [userId]);
 
   const handleRelease = async (borrowId) => {
+    console.log("borrowId", borrowId);
     try {
-      await axios.delete(`http://localhost:5000/api/borrows/${borrowId}`);
-      setBorrowedBooks(borrowedBooks.filter(borrow => borrow._id !== borrowId));
+      await axios.put(`http://localhost:5000/api/borrows/${borrowId}`, {}, {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        }
+      });
+      // setBorrowedBooks(borrowedBooks.filter(borrow => borrow.id !== borrowId));
+      setBorrowedBooks(borrowedBooks.filter(({ borrowId: id }) => id !== borrowId));
+
       alert('Book released successfully!');
     } catch (error) {
       console.error('Error releasing book:', error);
       alert('Error releasing book. Please try again.');
     }
   };
+
+  console.log("borrowedBooks", borrowedBooks);
 
   return (
     <section className="w-full overflow-hidden dark:bg-gray-900 rounded-[26px]">
@@ -65,28 +84,28 @@ export default function Profile({  }) {
                     </tr>
                   </thead>
                   <tbody className="bg-white">
-                    {borrowedBooks.map((borrow) => (
-                      <tr key={borrow._id}>
+                    {borrowedBooks.map(({borrowId, book}) => (
+                      <tr key={book.id}>
                         <td className="py-4 px-6 border-b border-gray-200">
                           <img
-                            src={`https://raw.githubusercontent.com/rishikumarr/images/main/hand-picked-books/${borrow.book.coverImage}`}
-                            alt={borrow.book.title}
+                            src={`https://raw.githubusercontent.com/rishikumarr/images/main/hand-picked-books/${book.coverImage}`}
+                            alt={book.title}
                             className="w-16 h-24 object-cover"
                           />
                         </td>
                         <td className="py-4 px-6 border-b border-gray-200 truncate">
-                          {borrow.book.title}
+                          {book.title}
                         </td>
                         <td className="py-4 px-6 border-b border-gray-200">
-                          {borrow.book.author}
+                          {book.author}
                         </td>
                         <td className="py-4 px-6 border-b border-gray-200">
-                          {borrow.book.genre}
+                          {book.genre}
                         </td>
                         <td className="py-4 px-6 border-b border-gray-200">
                           <button
                             className="bg-red-500 text-white py-2 px-8 rounded-[5px] text-xs"
-                            onClick={() => handleRelease(borrow._id)}
+                            onClick={() => handleRelease(borrowId)}
                           >
                             Release
                           </button>

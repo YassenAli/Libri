@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { TiHeart } from "react-icons/ti";
-import { getAuthUser, getToken } from "../helper/Storage";
+import { getAuthUser, getToken, getdecodedToken } from "../helper/Storage";
 import { TiHeartFullOutline } from "react-icons/ti";
 import { TiHeartOutline } from "react-icons/ti";
 
@@ -22,7 +22,7 @@ const BookCard = ({ book, onClick }) => {
         // Add to wishlist
         await axios.post(`http://localhost:5000/api/wishlists/addToWishlist`, {
           bookId: book.id,
-          wishlistId: getAuthUser().wishlist.id,
+          wishlistId: getdecodedToken().WishlistId,
         }, {
           headers: {
             Authorization: `Bearer ${getToken()}`,
