@@ -36,9 +36,7 @@ const BookCard = ({ book, onClick }) => {
       if (isInWishlist) {
         // Remove from wishlist
         await axios.delete(
-          `http://localhost:5000/api/wishlists/${getdecodedToken().WishlistId}/${
-            book.id
-          }`,
+          `http://localhost:5000/api/wishlists/${getdecodedToken().WishlistId}/${book.id}`,
           {
             headers: {
               Authorization: `Bearer ${getToken()}`,

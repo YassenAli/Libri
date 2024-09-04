@@ -31,7 +31,6 @@ const Register = () => {
       })
       .then((resp) => {
         setRegister({ ...register, loading: false, err: [] });
-        console.log("Register.js:", resp.data);
         setAuthUser(resp.data);
         navigate("/");
       })
