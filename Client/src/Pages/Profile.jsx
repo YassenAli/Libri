@@ -1,7 +1,7 @@
 /* profile */
 
-import React, { useEffect, useState } from "react";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { getdecodedToken, getToken } from "../helper/Storage";
 
 export default function Profile({}) {
@@ -10,9 +10,6 @@ export default function Profile({}) {
   const userId = getdecodedToken().id;
 
   useEffect(() => {
-    // console.log("token", getToken());
-
-    // Fetch borrowed books from the API
     const fetchBorrowedBooks = async () => {
       try {
         const response = await axios.get(`http://localhost:5000/api/borrows/`, {
@@ -20,7 +17,6 @@ export default function Profile({}) {
             Authorization: `Bearer ${getToken()}`,
           },
         });
-        // console.log("response", response);
         setBorrowedBooks(response.data);
       } catch (error) {
         console.error("Error fetching borrowed books:", error);
@@ -31,7 +27,6 @@ export default function Profile({}) {
   }, [userId]);
 
   const handleRelease = async (borrowId) => {
-    console.log("borrowId", borrowId);
     try {
       await axios.put(
         `http://localhost:5000/api/borrows/${borrowId}`,
@@ -54,7 +49,6 @@ export default function Profile({}) {
     }
   };
 
-  console.log("borrowedBooks", borrowedBooks);
 
   return (
     <section className="w-full overflow-hidden dark:bg-gray-900 rounded-[26px]">

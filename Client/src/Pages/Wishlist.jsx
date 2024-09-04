@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { getToken, getAuthUser, getdecodedToken } from "../helper/Storage";
+import React, { useEffect, useState } from "react";
 import Loader from "../Components/Shared/Loader";
+import { getdecodedToken, getToken } from "../helper/Storage";
 
 const Wishlist = () => {
   const [wishlistBooks, setWishlistBooks] = useState([]);
@@ -31,7 +31,6 @@ const Wishlist = () => {
     fetchWishlist();
   }, []);
 
-  console.log("token", getdecodedToken());
 
   const handleRemoveFromWishlist = async (bookId) => {
     try {

@@ -1,8 +1,7 @@
 /* Book details */
 
-import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Alert } from "bootstrap";
+import React, { useEffect, useState } from "react";
 import { getToken, getdecodedToken } from "../helper/Storage";
 
 const BookDetails = ({ book, closeModal }) => {
@@ -32,10 +31,6 @@ const BookDetails = ({ book, closeModal }) => {
   };
 
   const handleDateSubmit = async () => {
-    console.log("BookDetails -> borrowDate", borrowDate);
-    console.log("BookDetails -> returnDate", returnDate);
-    console.log("BookDetails -> userId", userId);
-    console.log("BookDetails -> book.id", book.id);
     try {
       await axios.post(
         "http://localhost:5000/api/borrows/",
