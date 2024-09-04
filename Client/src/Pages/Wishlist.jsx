@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { getToken, getAuthUser, getdecodedToken } from "../helper/Storage"; 
+import { getToken, getAuthUser, getdecodedToken } from "../helper/Storage";
 import Loader from "../Components/Shared/Loader";
 
 const Wishlist = () => {
@@ -32,7 +32,7 @@ const Wishlist = () => {
   }, []);
 
   console.log("token", getdecodedToken());
-  
+
   const handleRemoveFromWishlist = async (bookId) => {
     try {
       await axios.delete(
@@ -91,8 +91,12 @@ const Wishlist = () => {
                     <tr key={book.id}>
                       <td className="py-4 px-6 border-b border-gray-200">
                         <img
-                          src={`https://raw.githubusercontent.com/rishikumarr/images/main/hand-picked-books/${book.coverImage}`}
-                          alt={book.title}
+                          src={
+                            book.coverImage === "https://placehold.co/150x200"
+                              ? book.coverImage
+                              : `/Server/uploads/profile/${book.coverImage}`
+                          }
+                          alt="Book Cover"
                           className="w-16 h-24 object-cover"
                         />
                       </td>

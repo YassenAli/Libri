@@ -14,13 +14,20 @@ const BookDetails = ({ book, closeModal }) => {
     // Check if the book is already borrowed and set the borrowId state
     const checkBorrowedStatus = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/borrows/${book.id}`, {
+        const response = await axios.post(`http://localhost:5000/api/borrows/`, {
           headers: {
             Authorization: `Bearer ${getToken()}`,
           },
         });
-        if (response.data && response.data.borrowId) {
-          setBorrowId(response.data.borrowId);
+        console.log("Response from API:", response);
+
+        // Log specific parts of the response
+        console.log("Borrowed Status:", response.data);
+
+        if (response.data && response.data.id) {
+          setBorrowId(response.data.id);
+          // console.log("response.data" ,response);
+          // console.log("response.data.borrowId" ,response.data.borrowId);
         }
       } catch (error) {
         console.error("Error checking borrowed status:", error);
@@ -35,6 +42,7 @@ const BookDetails = ({ book, closeModal }) => {
   };
 
   const handleDateSubmit = async () => {
+    console.log("book id", book.id);
     try {
       const response = await axios.post(
         "http://localhost:5000/api/borrows/",
@@ -50,8 +58,11 @@ const BookDetails = ({ book, closeModal }) => {
           },
         }
       );
+      console.log("response.data" ,response.data);
+      console.log("response.data.borrowId" ,response.data.id);
+
       alert("Book borrowed successfully!");
-      setBorrowId(response.data.borrowId); // Set borrowId to mark as borrowed
+      setBorrowId(response.data.id); // Set borrowId to mark as borrowed
       setShowDatePopup(false);
       closeModal();
     } catch (error) {
