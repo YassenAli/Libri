@@ -42,7 +42,7 @@ export default function Profile({}) {
         borrowedBooks.filter(({ borrowId: id }) => id !== borrowId)
       );
 
-      alert("Book released successfully!");
+      // alert("Book released successfully!");
     } catch (error) {
       console.error("Error releasing book:", error);
       alert("Error releasing book. Please try again.");
@@ -192,11 +192,15 @@ export default function Profile({}) {
                     {borrowedBooks.map(({ borrowId, book }) => (
                       <tr key={book.id}>
                         <td className="py-4 px-6 border-b border-gray-200">
-                          <img
-                            src={`https://raw.githubusercontent.com/rishikumarr/images/main/hand-picked-books/${book.coverImage}`}
-                            alt={book.title}
-                            className="w-16 h-24 object-cover"
-                          />
+                        <img
+                          src={
+                            book.coverImage === "https://placehold.co/150x200"
+                              ? book.coverImage
+                              : `/Server/uploads/profile/${book.coverImage}`
+                          }
+                          alt="Book Cover"
+                          className="w-16 h-24 object-cover"
+                        />
                         </td>
                         <td className="py-4 px-6 border-b border-gray-200 truncate">
                           {book.title}

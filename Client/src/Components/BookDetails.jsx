@@ -8,8 +8,8 @@ const BookDetails = ({ book, closeModal }) => {
   const [showDatePopup, setShowDatePopup] = useState(false);
   const [borrowDate, setBorrowDate] = useState("");
   const [returnDate, setReturnDate] = useState("");
-  const [isBorrowed,setIsBorrowed] = useState("false")
-
+  const [isBorrowed,setIsBorrowed] = useState(false)
+  
   const userId = getdecodedToken().id;
 
   useEffect(() => {
@@ -46,11 +46,7 @@ const BookDetails = ({ book, closeModal }) => {
           },
         }
       );
-      alert('Book borrowed successfully!');
-      // <Alert variant="success">
-      //   <div>Book borrowed successfully!</div>
-      // </Alert>;
-      
+
       setShowDatePopup(false);
       setIsBorrowed(true)
       closeModal();
@@ -87,7 +83,7 @@ const BookDetails = ({ book, closeModal }) => {
         <div className="popup-content">
           <div className="content-left">
             { !isBorrowed ? (
-                <div>
+                <div className="bg-[#ff9ed3] text-[#4e233a] py-2 px-8 rounded-[6px] ">
                   <p>Unavailable</p>
                 </div>
               ) : (
@@ -110,8 +106,8 @@ const BookDetails = ({ book, closeModal }) => {
       </div>
 
       {showDatePopup && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-[#20b2aa61]">
-          <div className="p-8 rounded-lg shadow-lg w-96 bg-[floralwhite]">
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-[#5f838161]">
+          <div className="p-8 rounded-lg shadow-lg w-96 bg-[honeydew]">
             <h2 className="text-xl font-bold mb-4">Choose Dates</h2>
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700 mb-2">
