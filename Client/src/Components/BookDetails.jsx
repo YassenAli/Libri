@@ -1,50 +1,43 @@
-import React, { useState, useEffect } from "react";
+/* Book details */
+
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Alert } from "bootstrap";
 import { getToken, getdecodedToken } from "../helper/Storage";
 
 const BookDetails = ({ book, closeModal }) => {
   const [showDatePopup, setShowDatePopup] = useState(false);
   const [borrowDate, setBorrowDate] = useState("");
   const [returnDate, setReturnDate] = useState("");
-  const [borrowId, setBorrowId] = useState(null);
+  const [isBorrowed,setIsBorrowed] = useState("false")
 
   const userId = getdecodedToken().id;
 
   useEffect(() => {
-    // Check if the book is already borrowed and set the borrowId state
     const checkBorrowedStatus = async () => {
       try {
-        const response = await axios.post(`http://localhost:5000/api/borrows/`, {
-          headers: {
-            Authorization: `Bearer ${getToken()}`,
-          },
-        });
-        console.log("Response from API:", response);
-
-        // Log specific parts of the response
-        console.log("Borrowed Status:", response.data);
-
-        if (response.data && response.data.id) {
-          setBorrowId(response.data.id);
-          // console.log("response.data" ,response);
-          // console.log("response.data.borrowId" ,response.data.borrowId);
-        }
+        const response = await axios.get(`http://localhost:5000/api/books/${book.id}`);
+        setIsBorrowed(response.data.isAvailable);
       } catch (error) {
-        console.error("Error checking borrowed status:", error);
+        console.error('Error checking borrowed status:', error);
       }
     };
-
     checkBorrowedStatus();
   }, [book.id]);
+
+  if (!book) return null;
 
   const handleBorrowClick = () => {
     setShowDatePopup(true);
   };
 
   const handleDateSubmit = async () => {
-    console.log("book id", book.id);
+    console.log("BookDetails -> borrowDate", borrowDate);
+    console.log("BookDetails -> returnDate", returnDate);
+    console.log("BookDetails -> userId", userId);
+    console.log("BookDetails -> book.id", book.id);
     try {
-      const response = await axios.post(
+      await axios.post(
         "http://localhost:5000/api/borrows/",
         {
           userId,
@@ -58,16 +51,16 @@ const BookDetails = ({ book, closeModal }) => {
           },
         }
       );
-      console.log("response.data" ,response.data);
-      console.log("response.data.borrowId" ,response.data.id);
-
-      alert("Book borrowed successfully!");
-      setBorrowId(response.data.id); // Set borrowId to mark as borrowed
+      alert('Book borrowed successfully!');
+      // <Alert variant="success">
+      //   <div>Book borrowed successfully!</div>
+      // </Alert>;
+      
       setShowDatePopup(false);
+      setIsBorrowed(true)
       closeModal();
     } catch (error) {
-      console.error("Error borrowing book:", error);
-      alert("Error borrowing book. Please try again.");
+      console.error('Error borrowing book:', error);
     }
   };
 
@@ -75,7 +68,6 @@ const BookDetails = ({ book, closeModal }) => {
     book.coverImage === "https://placehold.co/150x200"
       ? book.coverImage
       : `/Server/uploads/profile/${book.coverImage}`;
-
   return (
     <>
       <div className="book-popup">
@@ -99,16 +91,15 @@ const BookDetails = ({ book, closeModal }) => {
         </div>
         <div className="popup-content">
           <div className="content-left">
-            {!borrowId && (
-              <button className="borw-btn" onClick={handleBorrowClick}>
-                Borrow
-              </button>
-            )}
-            {borrowId && (
-              <div className="bg-[#f988c5] text-[#62103c] px-4 md:h-[40px] flex flex-row justify-center items-center rounded-lg">
-                Unavailable
-              </div>
-            )}
+            { !isBorrowed ? (
+                <div>
+                  <p>Unavailable</p>
+                </div>
+              ) : (
+                <button className="borw-btn" onClick={handleBorrowClick}>
+                  Borrow
+                </button>
+              )}
           </div>
           <div className="content-right">
             <h3 className="modal-title">{book.title}</h3>
