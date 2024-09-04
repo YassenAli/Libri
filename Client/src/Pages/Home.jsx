@@ -59,8 +59,8 @@ const Home = () => {
     setSelectedBook(null);
   };
 
-  const handleSearch = (book) => {
-    setSearchTerm(book.target.value);
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
   };
 
   const filteredBooks = books.results.filter((book) =>
@@ -85,36 +85,35 @@ const Home = () => {
 
           {!getAuthUser() && (
             <div className="flex justify-center items-center">
-            <div
-              className="flex inline-flex justify-center bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 my-2 rounded "
-              role="alert"
-            >
-              <span className="block sm:inline pl-2">
-                you should login first to display books
-              </span>
-              <span
-                className="inline cursor-pointer pl-2"
-                onClick={(e) => e.currentTarget.parentNode.remove()}
+              <div
+                className="flex inline-flex justify-center bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 my-2 rounded "
+                role="alert"
               >
-                <svg
-                  className="fill-current h-6 w-6"
-                  role="button"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
+                <span className="block sm:inline pl-2">
+                  You should log in first to display books.
+                </span>
+                <span
+                  className="inline cursor-pointer pl-2"
+                  onClick={(e) => e.currentTarget.parentNode.remove()}
                 >
-                  <title>Close</title>
-                  <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
-                </svg>
-              </span>
+                  <svg
+                    className="fill-current h-6 w-6"
+                    role="button"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                  >
+                    <title>Close</title>
+                    <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                  </svg>
+                </span>
+              </div>
             </div>
-          </div>
-          
           )}
 
           <div className="flex justify-center mt-8">
             <div className="home-container flex flex-wrap justify-center">
               <div className={`subcontainer ${showModal ? "show" : ""}`}>
-                {books.results.map((book) => (
+                {filteredBooks.map((book) => (
                   <BookCard
                     key={book.id}
                     book={book}

@@ -17,7 +17,7 @@ const Register = () => {
     password: "",
     username: "",
     loading: "false",
-    err: "",
+    err: [],
   });
 
   const RegisterFun = (e) => {
@@ -50,8 +50,9 @@ const Register = () => {
         <div className="md:w-1/2 px-8">
           <h2 className="font-bold text-3xl text-[#2a626e] mb-[30px]">Register</h2>
           {/* Error Alert */}
-          {register.err && (
+          {register.err.map((error, index) => (
             <div
+            key={index}
               className="flex inline-flex justify-between bg-red-100 border border-red-400 text-red-700 px-4 py-3 my-2 rounded  "
               role="alert"
             >
@@ -71,7 +72,7 @@ const Register = () => {
                 </svg>
               </span>
             </div>
-          )}
+          ))}
           <form onSubmit={RegisterFun} className="flex flex-col gap-4">
             <input
               className="p-2 mt-8 rounded-xl border w-full"
