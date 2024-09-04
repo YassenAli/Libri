@@ -53,14 +53,17 @@ const BookDetails = ({ book, closeModal }) => {
     </Alert>
     }
   };
-  
 
+  const bookImg =
+    book.coverImage === "https://placehold.co/150x200"
+      ? book.coverImage
+      : `/Server/uploads/profile/${book.coverImage}`;
   return (
     <>
       <div className="book-popup">
         <div className="book flex open">
           <img
-            src={`https://raw.githubusercontent.com/rishikumarr/images/main/hand-picked-books/${book.coverImage}`}
+            src={bookImg}
             className="book-front"
             alt={book.title}
           />
@@ -77,7 +80,7 @@ const BookDetails = ({ book, closeModal }) => {
             className="book-back"
             style={{
               backgroundImage:
-                `url(https://raw.githubusercontent.com/rishikumarr/images/main/hand-picked-books/${book.coverImage})`,
+                `url(${bookImg})`,
                 
             }}
           ></div>

@@ -8,6 +8,9 @@ import authRoutes from './routes/authRoutes.js';
 import bookRoutes from './routes/bookRoutes.js';
 import borrowRoutes from './routes/borrowRoutes.js';
 import wishlistRoutes from './routes/wishlistRoutes.js';
+import path from 'path';
+
+const __dirname = path.resolve();
 
 const app = express();
 const PORT = process.env.PORT;
@@ -16,6 +19,7 @@ const PORT = process.env.PORT;
 app.use(cors());
 app.use(express.json());
 
+app.use('/Server/uploads', express.static(path.join(__dirname, '/uploads')));
 app.use('/api/auth', authRoutes);
 app.use('/api/books', bookRoutes);
 app.use('/api/borrows', borrowRoutes);

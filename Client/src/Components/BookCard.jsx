@@ -13,7 +13,7 @@ const BookCard = ({ book, onClick }) => {
       if (isInWishlist) {
         // Remove from wishlist
         await axios.put(
-          `http://localhost:5000/api/wishlists/${getAuthUser().WishlistId}/${
+          `http://localhost:5000/api/wishlists/${getdecodedToken().WishlistId}/${
             book.id
           }`,
           {
@@ -48,7 +48,7 @@ const BookCard = ({ book, onClick }) => {
 
   const bookImg =
     book.coverImage === "https://placehold.co/150x200"
-      ? "https://placehold.co/150x200"
+      ? book.coverImage 
       : `/Server/uploads/profile/${book.coverImage}`;
 
   return (
