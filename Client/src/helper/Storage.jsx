@@ -27,12 +27,57 @@ export const removeAuthUser = () =>{
     }
 }
 
+// export const getdecodedToken = () => {
+//     const decodedToken = jwtDecode(localStorage.getItem('Token'));
+//     return decodedToken;
+// }
+
 export const getdecodedToken = () => {
-    const decodedToken = jwtDecode(localStorage.getItem('Token'));
-    return decodedToken;
-}
+    const token = localStorage.getItem('Token');
+    if (!token) return null;
+
+    try {
+        return jwtDecode(token);
+    } catch (error) {
+        console.error('Error decoding token:', error);
+        return null;
+    }
+};
+
+/* this for check if token expired */
+export const isTokenExpired = () => {
+    const decodedToken = getdecodedToken();
+    if (!decodedToken) return true;
+
+    const currentTime = Date.now() / 1000; // Current time in seconds
+    return decodedToken.exp < currentTime;
+};
 
 export const getToken = () => {
     const token = JSON.parse(localStorage.getItem('Token'));
     return token;
 }
+
+
+
+
+// export const getdecodedToken = () => {
+//     const token = localStorage.getItem('Token');
+//     if (!token) return null;
+
+//     try {
+//         return jwtDecode(token);
+//     } catch (error) {
+//         console.error('Error decoding token:', error);
+//         return null;
+//     }
+// };
+
+// /* this for check if token expired */
+// export const isTokenExpired = () => {
+//     const decodedToken = getdecodedToken();
+//     if (!decodedToken) return true;
+
+//     const currentTime = Date.now() / 1000; // Current time in seconds
+//     return decodedToken.exp < currentTime;
+// };
