@@ -36,9 +36,7 @@ const Wishlist = () => {
   const handleRemoveFromWishlist = async (bookId) => {
     try {
       await axios.delete(
-        `http://localhost:5000/api/wishlists/${
-          getdecodedToken().WishlistId
-        }/${bookId}`,
+        `http://localhost:5000/api/wishlists/${getdecodedToken().WishlistId}/${bookId}`,
         {
           headers: {
             Authorization: `Bearer ${getToken()}`,

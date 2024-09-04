@@ -59,9 +59,6 @@ export default function AddBook() {
     formData.append("genre", bookData.genre);
     formData.append("author", bookData.author);
 
-    console.log("coverImage", coverImage);
-    console.log("coverImage cur", coverImage.current);
-    console.log("coverImage files", coverImage.current.files);
     if (coverImage.current && coverImage.current.files && coverImage.current.files[0]) {
       formData.append("coverImage", coverImage.current.files[0]);
     }

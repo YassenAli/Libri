@@ -27,7 +27,6 @@ const Login = () => {
       })
       .then((resp) => {
         setLogin({ ...Login, loading: false, err: [] });
-        // const { access, refresh } = resp.data;
         console.log("Login.js:", resp.data);
         setAuthUser(resp.data);
         navigate("/");
