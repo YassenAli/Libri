@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import "../components.css";
-import { useNavigate } from "react-router-dom";
-import Cover from "../../imgs/libry.jpg";
 import axios from "axios";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { setAuthUser } from "../../helper/Storage";
+import Cover from "../../imgs/libry.jpg";
+import "../components.css";
 const Login = () => {
   const navigate = useNavigate();
   const handlerec = () => {
@@ -27,7 +27,6 @@ const Login = () => {
       })
       .then((resp) => {
         setLogin({ ...Login, loading: false, err: [] });
-        console.log("Login.js:", resp.data);
         setAuthUser(resp.data);
         navigate("/");
       })

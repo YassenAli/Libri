@@ -1,8 +1,8 @@
 import express from 'express';
 import { Login, Register } from '../controllers/authController.js';
-import { User } from '../models/index.js';
 import authMiddleware from '../middleware/authMiddleware.js';
 import upload from '../middleware/uploadMiddleware.js';
+import { User } from '../models/index.js';
 
 const router = express.Router();
 
@@ -15,7 +15,6 @@ router.route('/register')
 router.post('/login', Login);
 
 router.post('/upload-profile-picture', authMiddleware, upload.single('profilePicture'), (req, res) => {
-  console.log("req", req);
   const userId = req.user.id;
   const profilePicture = req.file.filename;
 
